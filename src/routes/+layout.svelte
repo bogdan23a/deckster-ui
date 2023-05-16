@@ -7,19 +7,12 @@
 	// Mos of your app wide CSS should be put in this file
 	import '../app.postcss';
 	import { AppShell, AppBar, LightSwitch, Modal, type ModalComponent } from '@skeletonlabs/skeleton';
-	import AddDeck from '$lib/AddDeck.svelte';
 
 	const env = import.meta.env.VITE_DECKMASTER_ENVIRONMENT;
 	const swaggerUi = import.meta.env.VITE_SWAGGER_API;
-
-	export const modalComponentRegistry: Record<string, ModalComponent> = {
-		addDeck: {
-			ref: AddDeck
-		}
-	};
 </script>
 
-<Modal component={modalComponentRegistry}/>
+<Modal/>
 <!-- App Shell -->
 <AppShell>
 	<svelte:fragment slot="header">

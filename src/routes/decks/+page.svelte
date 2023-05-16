@@ -2,8 +2,9 @@
     import { onMount } from 'svelte';
     import DeckList from '$lib/DeckList.svelte';
     import { inview } from 'svelte-inview/dist/index';
-    import { modalStore, type ModalSettings, type ModalComponent } from '@skeletonlabs/skeleton';
-	import AddDeck from '$lib/AddDeck.svelte';
+    import { modalStore } from '@skeletonlabs/skeleton';
+    import { AddDeckModal } from '$lib/modals/AddDeckModal';
+
 
     let page = {
         "pageNumber": -1,
@@ -29,15 +30,8 @@
             fetchDecks();
         }
     }
-    const c: ModalComponent = {ref: AddDeck}
-    const modal: ModalSettings = {
-        type: 'component',
-        component: c,
-        title: 'Add New Deck',
-        body: 'Complete the form below and then press submit.',
-        response: (r: any) => console.log('response:', r)
-    };
-    const triggerAddDeckModal = () => modalStore.trigger(modal);
+    
+    const triggerAddDeckModal = () => modalStore.trigger(AddDeckModal);
 </script>
 
 <div class="container h-full mx-auto flex">
