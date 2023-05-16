@@ -10,7 +10,7 @@
 </script>
 
 <ListBoxItem bind:group={valueSingle} name="medium" value="books">
-    <a class="block card card-hover p-4" href="/deck">
+    <a class="block card card-hover p-4" href="/deck/{deck['name']}">
         <header class="card-header">{deck['name']}</header>
         <section class="p-4"></section>
         <footer class="card-footer bottom-0">
@@ -40,5 +40,9 @@
         border-radius: 13px;
         background-color: rgb(0, 0, 0) !important;
         color: rgb(255, 255, 255);
+        font-family:  Neue LT,-apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,sans-serif;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 26px;
 	}
 </style>

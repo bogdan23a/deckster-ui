@@ -2,7 +2,7 @@
 // @ts-nocheck
 
 	import { ListBox,  } from '@skeletonlabs/skeleton';
-    import Deck from './Deck.svelte';
+    import Deck from '$lib/Deck.svelte';
     export let decks;
 </script>
 

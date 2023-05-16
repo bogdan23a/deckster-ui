@@ -3,14 +3,23 @@
 	import '@skeletonlabs/skeleton/themes/theme-crimson.css';
 	// If you have source.organizeImports set to true in VSCode, then it will auto change this ordering
 	import '@skeletonlabs/skeleton/styles/skeleton.css';
-	// Most of your app wide CSS should be put in this file
+
+	// Mos of your app wide CSS should be put in this file
 	import '../app.postcss';
-	import { AppShell, AppBar, LightSwitch } from '@skeletonlabs/skeleton';
+	import { AppShell, AppBar, LightSwitch, Modal, type ModalComponent } from '@skeletonlabs/skeleton';
+	import AddDeck from '$lib/AddDeck.svelte';
+
 	const env = import.meta.env.VITE_DECKMASTER_ENVIRONMENT;
-	const envColor = import.meta.env.VITE_DECKMASTER_ENVIRONMENT_COLOR;
 	const swaggerUi = import.meta.env.VITE_SWAGGER_API;
+
+	export const modalComponentRegistry: Record<string, ModalComponent> = {
+		addDeck: {
+			ref: AddDeck
+		}
+	};
 </script>
 
+<Modal component={modalComponentRegistry}/>
 <!-- App Shell -->
 <AppShell>
 	<svelte:fragment slot="header">
