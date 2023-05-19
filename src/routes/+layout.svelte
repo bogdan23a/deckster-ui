@@ -7,6 +7,10 @@
 	// Mos of your app wide CSS should be put in this file
 	import '../app.postcss';
 	import { AppShell, AppBar, LightSwitch, Modal, type ModalComponent } from '@skeletonlabs/skeleton';
+	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
+	import { storePopup } from '@skeletonlabs/skeleton';
+	
+	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
 	const env = import.meta.env.VITE_DECKMASTER_ENVIRONMENT;
 	const swaggerUi = import.meta.env.VITE_SWAGGER_API;

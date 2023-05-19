@@ -1,14 +1,31 @@
 <script lang='ts'>
-    import { ListBoxItem } from '@skeletonlabs/skeleton';
+	import { goto } from '$app/navigation';
+    import { ListBoxItem, type PopupSettings } from '@skeletonlabs/skeleton';
+    import { popup } from '@skeletonlabs/skeleton';
 	let valueSingle = 'books';
     let card_types = new Map([
         ["black", 1],
         ["white", 1]]);
     export let deck: any;
+    const deleteDeck = () => {
+        fetch(import.meta.env.VITE_DECKMASTER_URI + "/deck", {
+            method: 'DELETE',
+            body: JSON.stringify(deck),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(() => goto(window.location))
+    } 
+    const popupClick: PopupSettings = {
+	    event: 'click',
+	    target: 'popupClick',
+	    placement: 'top',
+    };
 </script>
 
 <ListBoxItem bind:group={valueSingle} name="medium" value="books">
-    <a class="block card card-hover p-4" href="/deck/{deck['name']}">
+    <button class="block card card-hover p-4" use:popup={popupClick}>
         <header class="card-header">{deck['name']}</header>
         <section class="p-4"></section>
         <footer class="card-footer bottom-0">
@@ -22,7 +39,15 @@
                 </p>
             {/each}
         </footer>
-    </a>
+    </button>
+
+    <div class="p-4 variant-filled-surface" data-popup="popupClick">
+        <div class="grid grid-cols-1 gap-2">
+            <button id="wont-close" class="btn variant-filled-warning">Edit</button>
+            <button id="wont-close" class="btn variant-filled-error" on:click={deleteDeck}>Delete</button>
+        </div>
+        <div class="arrow bg-surface-100-800-token" />
+    </div>
 </ListBoxItem>
 
 <style lang="postcss">

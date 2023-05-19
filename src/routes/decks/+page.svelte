@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import DeckList from '$lib/DeckList.svelte';
+    import EditableDeckList from '$lib/EditableDeckList.svelte';
     import { inview } from 'svelte-inview/dist/index';
     import { modalStore } from '@skeletonlabs/skeleton';
     import { AddDeckModal } from '$lib/modals/AddDeckModal';
@@ -50,7 +50,7 @@
                     loading...
                 {:then decks}
                     {#if decks !== null}
-                        <DeckList decks={decks}/>
+                        <EditableDeckList decks={decks}/>
                     {/if}
                 {:catch error}
                     {error}
