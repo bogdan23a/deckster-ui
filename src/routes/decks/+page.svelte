@@ -9,13 +9,14 @@
     let page = {
         "pageNumber": -1,
         "size": 10,
-        "totalSize": -1
+        "totalSize": 0
     };
     let inputDemo = '';
     let decks: any = [];
     const fetchDecks = async () => fetch(import.meta.env.VITE_DECKMASTER_URI + `/deck?pageSize=${page['size']}&pageNumber=${page['pageNumber'] + 1}`)
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             if (data['content'] !== undefined) {
                 decks = [...decks, ...data['content']];
             }

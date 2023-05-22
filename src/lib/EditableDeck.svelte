@@ -7,21 +7,25 @@
         ["black", 1],
         ["white", 1]]);
     export let deck: any;
-    const deleteDeck = () => {
-        fetch(import.meta.env.VITE_DECKMASTER_URI + "/deck", {
+    const deleteDeck = (e: PointerEvent) => {
+        console.log(e.target['id']);
+        fetch(import.meta.env.VITE_DECKMASTER_URI + "/deck/" + e.target['id'], {
             method: 'DELETE',
-            body: JSON.stringify(deck),
             headers: {
                 "Content-Type": "application/json"
             }
         })
-        .then(() => goto(window.location))
+        .then(() => goto("/decks"))
     } 
     const popupClick: PopupSettings = {
 	    event: 'click',
 	    target: 'popupClick',
 	    placement: 'top',
-    };
+        state: (e: Record<string, boolean>) => {
+            if (e.state) {
+                document.getElementsByClassName("deleteButton")[0].id = deck['id']
+            }
+    }};
 </script>
 
 <ListBoxItem bind:group={valueSingle} name="medium" value="books">
@@ -44,7 +48,7 @@
     <div class="p-4 variant-filled-surface" data-popup="popupClick">
         <div class="grid grid-cols-1 gap-2">
             <button id="wont-close" class="btn variant-filled-warning">Edit</button>
-            <button id="wont-close" class="btn variant-filled-error" on:click={deleteDeck}>Delete</button>
+            <button id={deck['id']} class="btn variant-filled-error deleteButton" on:click={deleteDeck}>Delete</button>
         </div>
         <div class="arrow bg-surface-100-800-token" />
     </div>
