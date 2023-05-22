@@ -7,7 +7,7 @@
 
 
     let page = {
-        "pageNumber": -1,
+        "number": -1,
         "size": 10,
         "totalSize": 0
     };

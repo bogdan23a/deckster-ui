@@ -8,7 +8,7 @@
 </script>
 
 <ListBoxItem bind:group={valueSingle} name="medium" value="books">
-    <a class="block card card-hover p-4" href="/deck/{deck['name']}">
+    <a class="block card card-hover p-4" href="/deck/{deck['id']}">
         <header class="card-header">{deck['name']}</header>
         <section class="p-4"></section>
         <footer class="card-footer bottom-0">

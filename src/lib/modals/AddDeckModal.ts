@@ -1,5 +1,5 @@
 import type { ModalComponent, ModalSettings } from "@skeletonlabs/skeleton";
-import AddDeck from "$lib/AddDeck.svelte";
+import AddDeck from "$lib/deck/AddDeck.svelte";
 
 const c: ModalComponent = {ref: AddDeck};
 export const AddDeckModal: ModalSettings = {

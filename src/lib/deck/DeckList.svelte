@@ -1,9 +1,7 @@
-<script>
-// @ts-nocheck
-
-	import { ListBox,  } from '@skeletonlabs/skeleton';
-    import Deck from '$lib/Deck.svelte';
-    export let decks;
+<script lang='ts'>
+	import { ListBox } from '@skeletonlabs/skeleton';
+    import Deck from '$lib/deck/Deck.svelte';
+    export let decks:any;
 </script>
 
 <ListBox active=false>

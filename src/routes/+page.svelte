@@ -1,33 +1,18 @@
-<script>
-// @ts-nocheck
-	import { onMount } from 'svelte';
-	import DeckList from '../lib/DeckList.svelte';
+<script lang='ts'>
+    /** @type {import('./$types').PageData} */
+    export let data;
+
+	import DeckList from '../lib/deck/DeckList.svelte';
 	import { inview } from 'svelte-inview/dist/index'
-	let page = {
-		"pageNumber": -1,
-		"size": 10,
-		"totalSize": -1
-	};
+
 	let inputDemo = '';
-	let decks = [];
-	const fetchDecks = async () => fetch(import.meta.env.VITE_DECKMASTER_URI + `/deck?pageSize=${page['size']}&pageNumber=${page['pageNumber'] + 1}`)
-		.then(response => response.json())
-		.then(data => {
-			console.log(page['pageNumber'] + 1)
-			if (data['content'] !== undefined) {
-				decks = [...decks, ...data['content']];
-			}
-			page = data;
-		})
-		.catch(error => console.log(error));
+	let page = data.page;
 
-	onMount(async () => fetchDecks());
-
-	const handleChange = (event) => {
-		if (event.detail.inView && decks.length !== page['totalSize'] + 1) {
-			fetchDecks();
-		}
-	}
+	// const handleChange = (event) => {
+		// if (event.detail.inView && page['pageNumber'] + 1 !== page['totalPage']) {
+			// getDecksPage(page['pageNumber'] + 1);
+		// }
+	// }
 </script>
 
 <div class="container h-full mx-auto flex">
@@ -39,16 +24,16 @@
 				</td>
 			</tr>
 			<tr class="place-content-center">
-				{#await decks}
+				{#await page}
 					loading...
-				{:then decks}
-					{#if decks !== null}
-						<DeckList decks={decks}/>
+				{:then page}
+					{#if page['content'] !== null}
+						<DeckList decks={page['content']}/>
 					{/if}
 				{:catch error}
 					{error}
 				{/await}
-				<div use:inview={{}} on:change={handleChange} />
+				<!-- <div use:inview={{}} on:change={handleChange} /> -->
 			</tr>
 		</tbody>
 	</table>
