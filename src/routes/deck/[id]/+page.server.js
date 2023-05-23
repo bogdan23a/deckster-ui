@@ -3,6 +3,8 @@ import { getDeck } from '$lib/server/db';
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ params }) {
     return {
-        deck: await getDeck(params.id)
+        deck: {
+            data: await getDeck(params.id)
+        }
     }
 }

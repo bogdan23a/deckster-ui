@@ -1,6 +1,6 @@
 <script lang='ts'>
         import { ListBox,  } from '@skeletonlabs/skeleton';
-        import EditableDeck from '$lib/EditableDeck.svelte';
+        import EditableDeck from '$lib/deck/EditableDeck.svelte';
         export let decks: any;
     </script>
     

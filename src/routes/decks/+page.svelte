@@ -1,36 +1,20 @@
 <script lang="ts">
+    export let data:any;
+
     import { onMount } from 'svelte';
-    import EditableDeckList from '$lib/EditableDeckList.svelte';
+    import EditableDeckList from '$lib/deck/EditableDeckList.svelte';
     import { inview } from 'svelte-inview/dist/index';
     import { modalStore } from '@skeletonlabs/skeleton';
-    import { AddDeckModal } from '$lib/modals/AddDeckModal';
+    import { AddDeckModal } from '$lib/deck/modal/AddDeckModal';
 
-
-    let page = {
-        "number": -1,
-        "size": 10,
-        "totalSize": 0
-    };
+	let page = data.page.data;
     let inputDemo = '';
-    let decks: any = [];
-    const fetchDecks = async () => fetch(import.meta.env.VITE_DECKMASTER_URI + `/deck?pageSize=${page['size']}&pageNumber=${page['pageNumber'] + 1}`)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            if (data['content'] !== undefined) {
-                decks = [...decks, ...data['content']];
-            }
-            page = data;
-        })
-        .catch(error => console.log(error));
-
-    onMount(async () => fetchDecks());
-
-    const handleChange = (event: any) => {
-        if (event.detail.inView && decks.length !== page['totalSize']) {
-            fetchDecks();
-        }
-    }
+    
+    // const handleChange = (event: any) => {
+    //     if (event.detail.inView && decks.length !== page['totalSize']) {
+    //         fetchDecks();
+    //     }
+    // }
     
     const triggerAddDeckModal = () => modalStore.trigger(AddDeckModal);
 </script>
@@ -47,16 +31,16 @@
                 </td>
             </tr>
             <tr class="place-content-center">
-                {#await decks}
+                {#await page}
                     loading...
-                {:then decks}
-                    {#if decks !== null}
-                        <EditableDeckList decks={decks}/>
+                {:then page}
+                    {#if !page['empty']}
+                        <EditableDeckList decks={page.content}/>
                     {/if}
                 {:catch error}
                     {error}
                 {/await}
-                <div use:inview={{}} on:change={handleChange} />
+                <!-- <div use:inview={{}} on:change={handleChange} /> -->
             </tr>
         </tbody>
     </table>

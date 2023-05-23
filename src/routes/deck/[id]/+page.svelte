@@ -1,17 +1,43 @@
 <script lang='ts'>
+	import CardList from '$lib/card/CardList.svelte';
+	import { AddDeckModal } from '$lib/deck/modal/AddDeckModal.js';
+	import { modalStore } from '@skeletonlabs/skeleton';
+
     export let data;
-    let deck:any = data.deck
+    let deck:any = data.deck.data
+    const groups = deck['cards'].reduce((groups, item) => {
+        const group = (groups[item.card_type] || []);
+        group.push(item);
+        groups[item.card_type] = group;
+        return groups;
+        }, {});
+    const triggerAddCardModal = () => modalStore.trigger(AddDeckModal);
 </script>
 
-<h1>{deck['name']}</h1>
-
-{#await page}
-    loading...
-{:then page}
-    {#if page['content'] !== null}
-        <DeckList decks={page['content']}/>
-    {/if}
-{:catch error}
-    {error}
-{/await}
+<div class="container h-full mx-auto flex">
+	<table class=" flex-col w-full table-auto">
+		<tbody>
+			<tr>
+				<td>
+                    <h2 class="h1">{deck['name']}</h2>
+				</td>
+                <td>
+                    <button type="button" class="btn-icon btn-xl variant-filled" on:click={triggerAddCardModal}>+</button>
+                </td>
+			</tr>
+			<tr class="place-content-center">
+                {#await deck}
+                loading...
+                {:then deck}
+                {#if deck !== null}
+                    <CardList cards={deck['cards']}/>
+                {/if}
+                {:catch error}
+                {error}
+                {/await}
+				<!-- <div use:inview={{}} on:change={handleChange} /> -->
+			</tr>
+		</tbody>
+	</table>
+</div>
 

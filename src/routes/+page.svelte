@@ -6,7 +6,7 @@
 	import { inview } from 'svelte-inview/dist/index'
 
 	let inputDemo = '';
-	let page = data.page;
+	let page = data.page.data;
 
 	// const handleChange = (event) => {
 		// if (event.detail.inView && page['pageNumber'] + 1 !== page['totalPage']) {
@@ -27,7 +27,7 @@
 				{#await page}
 					loading...
 				{:then page}
-					{#if page['content'] !== null}
+					{#if !page['empty']}
 						<DeckList decks={page['content']}/>
 					{/if}
 				{:catch error}
