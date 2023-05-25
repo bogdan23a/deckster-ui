@@ -1,17 +1,11 @@
 <script lang='ts'>
 	import CardList from '$lib/card/CardList.svelte';
-	import { AddDeckModal } from '$lib/deck/modal/AddDeckModal.js';
+	import { AddCardModal } from '$lib/card/modal/AddCardModal.js';
 	import { modalStore } from '@skeletonlabs/skeleton';
 
     export let data;
-    let deck:any = data.deck.data
-    const groups = deck['cards'].reduce((groups, item) => {
-        const group = (groups[item.card_type] || []);
-        group.push(item);
-        groups[item.card_type] = group;
-        return groups;
-        }, {});
-    const triggerAddCardModal = () => modalStore.trigger(AddDeckModal);
+    let deck:any = data.deck.data;
+    const triggerAddCardModal = () => modalStore.trigger(AddCardModal);
 </script>
 
 <div class="container h-full mx-auto flex">

@@ -18,7 +18,7 @@ export const getDeck = async (deckId:string) => fetch(import.meta.env.VITE_DECKM
     })
     .catch(error => console.log(error));
 
-export const getDeckNames = async () => fetch(import.meta.env.VITE_DECKMASTER_URI + `/deck/names`)
+export const getDeckNames = () => fetch(import.meta.env.VITE_DECKMASTER_URI + `/deck/names`)
     .then(response => {
         if (response.ok) {
             return response.json()
@@ -26,3 +26,17 @@ export const getDeckNames = async () => fetch(import.meta.env.VITE_DECKMASTER_UR
         throw new Error(`Failed to request deck names. Status ${response.status}`);
     })
     .catch(error => console.log(error));
+
+export const saveDeck = (deck:any) => fetch(import.meta.env.VITE_DECKMASTER_URI + '/deck', {
+    method: 'POST',
+    body: JSON.stringify(deck),
+    headers: {
+        'Content-Type': 'application/json'
+    }})
+    .then(response => {
+        if (response.ok) {
+            return response.json()
+        }
+        throw new Error(`Failed to save deck ${deck}. Status ${response.status}`)
+    })
+    .catch((error) => console.log(error));

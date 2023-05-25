@@ -2,24 +2,19 @@
 	export let parent: any;
 
     import { goto } from '$app/navigation';
+	import { saveDeck } from '$lib/server/db';
 	import { modalStore } from '@skeletonlabs/skeleton';
 
 	const formData = {
+		id: '',
 		name: ''
 	};
 
-	function onFormSubmit(): void {
+	function submitDeck(): void {
 		if ($modalStore[0].response) {
             $modalStore[0].response(formData);
-            fetch(import.meta.env.VITE_DECKMASTER_URI + "/deck", {
-                method: 'POST',
-                body: JSON.stringify(formData),
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-            .then(() => {
-                goto("/deck/" + formData['name']);
+            saveDeck(formData).then(() => {
+                goto("/deck/" + formData['id']);
             })
             .catch((error) => console.log(error));
         }
@@ -46,7 +41,7 @@
 		<!-- prettier-ignore -->
 		<footer class="modal-footer {parent.regionFooter}">
         <button class="btn {parent.buttonNeutral}" on:click={parent.onClose}>{parent.buttonTextCancel}</button>
-        <button class="btn {parent.buttonPositive}" on:click={onFormSubmit}>Submit Form</button>
+        <button class="btn {parent.buttonPositive}" on:click={submitDeck}>Submit Form</button>
     </footer>
 	</div>
 {/if}
