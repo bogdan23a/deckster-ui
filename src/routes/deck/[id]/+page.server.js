@@ -1,4 +1,5 @@
-import { getDeck, saveDeck } from '$lib/server/db';
+import { getDeck, saveCard } from '$lib/server/db';
+import { redirect } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ params }) {
@@ -9,11 +10,11 @@ export async function load({ params }) {
     }
 }
 
+/** @type {import('./$types').Actions} */
 export const actions = {
-    save: async (deck) => {
-    return {
-        deck: {
-            data: await saveDeck(deck)
-        }}
+    save: async ({ request }) => {
+        const data = await request.formData();
+        console.log(data);
+        return await saveCard(data);
     }
 }

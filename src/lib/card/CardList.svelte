@@ -2,6 +2,7 @@
 	import { ListBox } from '@skeletonlabs/skeleton';
     import Card from '$lib/card/Card.svelte';
     export let cards:any;
+    console.log(cards);
 </script>
 
 {#if cards !== undefined}

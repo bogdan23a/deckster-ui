@@ -27,9 +27,11 @@ export const getDeckNames = () => fetch(import.meta.env.VITE_DECKMASTER_URI + `/
     })
     .catch(error => console.log(error));
 
-export const saveDeck = (deck:any) => fetch(import.meta.env.VITE_DECKMASTER_URI + '/deck', {
+export const saveDeck = (data:any) => fetch(import.meta.env.VITE_DECKMASTER_URI + '/deck', {
     method: 'POST',
-    body: JSON.stringify(deck),
+    body: JSON.stringify({
+        name: data.get("name")
+    }),
     headers: {
         'Content-Type': 'application/json'
     }})
@@ -37,6 +39,25 @@ export const saveDeck = (deck:any) => fetch(import.meta.env.VITE_DECKMASTER_URI 
         if (response.ok) {
             return response.json()
         }
-        throw new Error(`Failed to save deck ${deck}. Status ${response.status}`)
+        throw new Error(`Failed to save deck ${data}. Status ${response.status}`)
+    })
+    .catch((error) => console.log(error));
+
+export const saveCard = (data:any) => fetch(import.meta.env.VITE_DECKMASTER_URI + "/card", {
+    method: 'POST',
+    body: JSON.stringify({
+        content: data.get('content'),
+        deckId: data.get('deck_id'),
+        typeId: data.get('type_id')
+    }),
+    headers: {
+        "Content-Type": "application/json"
+    }})
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error(`Failed to save card ${data}. Status ${response.status}`)
+        // goto("/deck/" + formData['name']);
     })
     .catch((error) => console.log(error));

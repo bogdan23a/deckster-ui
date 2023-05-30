@@ -1,19 +1,11 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
+	import { page } from '$app/stores';
+
 	export let parent: any;
-	export let deck:any;
+	export let form: any;
 
-    import { goto } from '$app/navigation';
 	import { modalStore } from '@skeletonlabs/skeleton';
-
-	const formData = {
-		name: '',
-        deck: {
-			id: "123",
-			type: {
-				'id': "321"
-			}
-		}
-	};
 
 	const types = [{
 			id: "321",
@@ -22,24 +14,6 @@
 			id: "331",
 			name: "White"
 		}]
-
-	function onFormSubmit(): void {
-		if ($modalStore[0].response) {
-            $modalStore[0].response(formData);
-            fetch(import.meta.env.VITE_DECKMASTER_URI + "/card", {
-                method: 'POST',
-                body: JSON.stringify(formData),
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-            .then(() => {
-                goto("/deck/" + formData['name']);
-            })
-            .catch((error) => console.log(error));
-        }
-		modalStore.close();
-	}
 
 	// Base Classes
 	const cBase = 'card p-4 w-modal shadow-xl space-y-4';
@@ -52,29 +26,35 @@
 		<header class={cHeader}>{$modalStore[0].title ?? '(title missing)'}</header>
 		<article>{$modalStore[0].body ?? '(body missing)'}</article>
 		<!-- Enable for debugging: -->
-		<form class="modal-form {cForm}" action="/deck/save" method="POST">
+		<form class="modal-form {cForm}" id="add_card" action="?/save" method="POST" use:enhance={() => {
+			return async ({ update }) => {
+				console.log("Da plm")
+				await update();
+				modalStore.close();
+			}
+		}}>
 			<label class="label">
-				<span>Name</span>
-				<input class="input" type="text" bind:value={formData.name} placeholder="Enter name..." />
+				<span>Content</span>
+				<input class="input" type="text" value={form?.name ?? ''} name="content" placeholder="Enter text..." required/>
 			</label>
 			<label class="label">
 				<span>Deck</span>
-				<input class="input" type="text" bind:value={formData.deck.id} placeholder="Select deck..." disabled>
+				<input class="input" type="text" value={$page.params.id ?? ''} name="deck_id" placeholder="Select deck..." required readonly>
 			</label>
 			<label class="label">
 				<span>Type</span>
 				<label for="underline_select" class="sr-only">Select card type...</label>
-				<select id="underline_select" bind:value={formData.deck.type.id} class="block py-2.5 px-2.5 text-md text-gray-500 input border-0 border-b-2 border-gray-200 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200">
+				<select id="underline_select" name="type_id" form="add_card" class="block py-2.5 px-2.5 text-md text-gray-500 input border-0 border-b-2 border-gray-200 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200" required>
 					{#each types as type}
 						<option value="{type.id}">{type.name}</option>
 					{/each}
 				</select>
 			</label>
+			<!-- prettier-ignore -->
+			<footer class="modal-footer {parent.regionFooter}">
+				<button class="btn {parent.buttonNeutral}" on:click={parent.onClose}>{parent.buttonTextCancel}</button>
+				<button class="btn {parent.buttonPositive}">Submit</button>
+			</footer>
 		</form>
-		<!-- prettier-ignore -->
-		<footer class="modal-footer {parent.regionFooter}">
-        <button class="btn {parent.buttonNeutral}" on:click={parent.onClose}>{parent.buttonTextCancel}</button>
-        <button class="btn {parent.buttonPositive}" on:click={onFormSubmit}>Submit Form</button>
-    </footer>
 	</div>
 {/if}

@@ -6,6 +6,5 @@ export const AddDeckModal: ModalSettings = {
     type: 'component',
     component: c,
     title: 'Add New Deck',
-    body: 'Complete the form below and then press submit',
-    response: (r: any) => console.log('response:', r)
+    body: 'Complete the form below and then press submit'
 };

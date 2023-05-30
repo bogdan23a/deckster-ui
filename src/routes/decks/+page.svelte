@@ -1,13 +1,12 @@
 <script lang="ts">
     export let data:any;
 
-    import { onMount } from 'svelte';
     import EditableDeckList from '$lib/deck/EditableDeckList.svelte';
     import { inview } from 'svelte-inview/dist/index';
     import { modalStore } from '@skeletonlabs/skeleton';
     import { AddDeckModal } from '$lib/deck/modal/AddDeckModal';
 
-	let page = data.page.data;
+	let page = data.page?.data;
     let inputDemo = '';
     
     // const handleChange = (event: any) => {

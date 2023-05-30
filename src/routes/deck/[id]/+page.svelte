@@ -4,6 +4,7 @@
 	import { modalStore } from '@skeletonlabs/skeleton';
 
     export let data;
+    console.log(data);
     let deck:any = data.deck.data;
     const triggerAddCardModal = () => modalStore.trigger(AddCardModal);
 </script>
@@ -24,7 +25,7 @@
                 loading...
                 {:then deck}
                 {#if deck !== null}
-                    <CardList cards={deck['cards']}/>
+                    <CardList cards={deck.cards}/>
                 {/if}
                 {:catch error}
                 {error}
