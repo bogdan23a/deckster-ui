@@ -16,6 +16,9 @@
 	const swaggerUi = import.meta.env.VITE_SWAGGER_API;
 </script>
 
+<svelte:head>
+	<title>Deckmaster {env}</title>
+</svelte:head>
 <Modal/>
 <!-- App Shell -->
 <AppShell>
@@ -49,7 +52,7 @@
 				</a>
 				<a
 					class="btn btn-sm variant-ghost-surface"
-					href="/decks"
+					href="/login"
 					target="_blank"
 					rel="noreferrer"
 				>
