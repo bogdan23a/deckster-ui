@@ -19,7 +19,6 @@
 		<!-- Enable for debugging: -->
 		<form class="modal-form {cForm}" action="?/save" method="POST" use:enhance={() => {
 			return async ({ update }) => {
-				console.log("da micutzule")
 				await update();
 				modalStore.close();
 			}
