@@ -45,7 +45,11 @@ export const saveDeck = (data:any) => fetch(import.meta.env.VITE_DECKMASTER_URI 
 
 export const saveCard = (data:any) => fetch(import.meta.env.VITE_DECKMASTER_URI + "/card", {
     method: 'POST',
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+        content: data['content'],
+        deckId: data['deck_id'],
+        typeId: data['type_id']
+    }),
     headers: {
         "Content-Type": "application/json"
     }})
