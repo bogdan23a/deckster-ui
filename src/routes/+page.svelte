@@ -29,7 +29,7 @@
 				{/if}
 			</tr>
 			<tr class="place-content-center">
-				{#await page}
+				{#await $page}
 					loading...
 				{:then $page}
 					{#if $page.data.decks['empty']}
