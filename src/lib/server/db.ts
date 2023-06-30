@@ -7,6 +7,7 @@ export const getDecksPage = async (page:any) => fetch(import.meta.env.VITE_DECKM
         }
         throw new Error(`Failed to request decks. Status ${response.status}`);
     })
+    .then(json => console.log(json))
     .catch(error => console.error(error));
 
 export const getDeck = async (deckId:string) => fetch(import.meta.env.VITE_DECKMASTER_URI + `/deck/${deckId}`)
