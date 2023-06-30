@@ -39,5 +39,10 @@
 		"vite": "^4.3.0",
 		"vitest": "^0.25.3"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@auth/core": "^0.9.0",
+		"@auth/sveltekit": "^0.3.3",
+		"@auth0/auth0-spa-js": "^2.0.8"
+	}
 }
