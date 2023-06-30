@@ -5,9 +5,15 @@ import { redirect } from '@sveltejs/kit';
 export const actions = {
     save: async ({ request }) => {
         const data = await request.formData();
-        const form_data = data.entries().next();
-        console.log(form_data);
-        const deck = await saveDeck(form_data);
+        let form_data = data.entries();
+        var obj = form_data.next();
+        var retrieved = {};
+        while (undefined !== obj.value) {
+            retrieved[obj.value[0]] = obj.value[1];
+            obj = form_data.next();
+        }
+        console.log(retrieved);
+        const deck = await saveDeck(retrieved);
         throw redirect(303, "/deck/" + deck.id);
     }
 }
