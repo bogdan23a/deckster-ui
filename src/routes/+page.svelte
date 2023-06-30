@@ -33,7 +33,7 @@
 				{#await $page}
 					loading...
 				{:then $page}
-					{#if $page.data.decks.empty}
+					{#if !$page.data.decks['empty']}
 						<DeckList decks={$page.data.decks.content}/>
 					{/if}
 				{:catch error}
