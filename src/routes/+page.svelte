@@ -1,4 +1,5 @@
 <script lang='ts'>
+	export let data:any;
 	import { page } from '$app/stores';
 	import DeckList from '../lib/deck/DeckList.svelte';
 	import { inview } from 'svelte-inview/dist/index';
@@ -6,7 +7,7 @@
     import { AddDeckModal } from '$lib/deck/modal/AddDeckModal';
 
 	let inputDemo = '';
-
+	let decks = data.decks;
 	// const handleChange = (event) => {
 		// if (event.detail.inView && page['pageNumber'] + 1 !== page['totalPage']) {
 			// getDecksPage(page['pageNumber'] + 1);
@@ -32,8 +33,8 @@
 				{#await $page}
 					loading...
 				{:then $page}
-					{#if $page.data.decks['empty']}
-						<DeckList decks={$page.data.decks['content']}/>
+					{#if decks['empty']}
+						<DeckList decks={decks['content']}/>
 					{/if}
 				{:catch error}
 					{error}
