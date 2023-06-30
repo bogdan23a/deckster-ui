@@ -21,15 +21,19 @@
         <header class="card-header">{deck['name']}</header>
         <section class="p-4"></section>
         <footer class="card-footer bottom-0">
-            {#each [...groups] as [type, count]}
-                <p>{count} {type} 
-                    {#if count == 1} 
-                        card 
-                    {:else} 
-                        cards
-                    {/if}
-                </p>
-            {/each}
+            {#if groups}
+                {#each [...groups] as [type, count]}
+                    <p>{count} {type} 
+                        {#if count == 1} 
+                            card 
+                        {:else} 
+                            cards
+                        {/if}
+                    </p>
+                {/each}
+            {:else}
+                <p>Empty</p>
+            {/if}
         </footer>
     </a>
 </ListBoxItem>
