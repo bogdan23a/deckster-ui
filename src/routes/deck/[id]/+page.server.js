@@ -14,8 +14,15 @@ export async function load({ params }) {
 export const actions = {
     save: async ({ request }) => {
         const data = await request.formData();
-        console.log(data);
-        const card = await saveCard(data);
+        let form_data = data.entries();
+        var obj = form_data.next();
+        var retrieved = {};
+        while (undefined !== obj.value) {
+            retrieved[obj.value[0]] = obj.value[1];
+            obj = form_data.next();
+        }
+        console.log(retrieved);
+        const card = await saveCard(retrieved);
         console.log(card);
         throw redirect(303, "/")
     }
