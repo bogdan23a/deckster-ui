@@ -14,8 +14,9 @@ export async function load({ params }) {
 export const actions = {
     save: async ({ request }) => {
         const data = await request.formData();
+        console.log(data);
         const card = await saveCard(data);
         console.log(card);
-        throw redirect(303, "/deck")
+        throw redirect(303, "/")
     }
 }
