@@ -20,9 +20,9 @@
 	<table class=" flex-col w-full table-auto">
 		<tbody>
 			<tr>
-				<td>
+				<!-- <td>
 					<input class="input my-10" type="search" name="demo" bind:value={inputDemo} placeholder="Search..." />
-				</td>
+				</td> -->
 				{#if $page.data.session}
 					<td>
 						<button type="button" class="btn-icon btn-xl variant-filled" on:click={triggerAddDeckModal}>+</button>
