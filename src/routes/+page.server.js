@@ -6,7 +6,7 @@ export const actions = {
     save: async ({ request }) => {
         const data = await request.formData();
         const form_data = data.entries().next();
-        console(form_data);
+        console.log(form_data);
         const deck = await saveDeck(form_data);
         throw redirect(303, "/deck/" + deck.id);
     }
