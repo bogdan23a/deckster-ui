@@ -28,7 +28,6 @@
 		<!-- Enable for debugging: -->
 		<form class="modal-form {cForm}" id="add_card" action="?/save" method="POST" use:enhance={() => {
 			return async ({ update }) => {
-				console.log("Da plm")
 				await update();
 				modalStore.close();
 			}
@@ -45,7 +44,7 @@
 				<span>Type</span>
 				<label for="underline_select" class="sr-only">Select card type...</label>
 				<select id="underline_select" name="type_id" form="add_card" class="block py-2.5 px-2.5 text-md text-gray-500 input border-0 border-b-2 border-gray-200 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200" required>
-					{#each types as type}
+					{#each $page.data.cardTypes as type}
 						<option value="{type.id}">{type.name}</option>
 					{/each}
 				</select>

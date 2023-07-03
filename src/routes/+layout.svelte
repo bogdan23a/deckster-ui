@@ -26,9 +26,9 @@
 <AppShell>
 	<svelte:fragment slot="header">
 		<!-- App Bar -->
-		<AppBar gridColumns="grid-cols-3" slotDefault="place-self-center" slotTrail="place-content-end" background="bg-emerald-950	" >
+		<AppBar gridColumns="grid-cols-3" slotDefault="place-self-center" slotTrail="place-content-end" background="bg-gray-950 dark:bg-gray-100">
 			<svelte:fragment slot="lead">(icon)</svelte:fragment>
-			<strong class="text-xl capitalize">
+			<strong class="text-xl capitalize text-gray-100 dark:text-gray-950">
 				<a 
 				    href="/"
 				>
@@ -37,7 +37,7 @@
 			</strong>
 			<svelte:fragment slot="trail">
 				<a
-					class="btn btn-sm variant-ghost-surface"
+					class="btn btn-sm variant-ghost-surface text-gray-100 dark:text-gray-950"
 					href={swaggerUi}
 					target="_blank"
 					rel="noreferrer"
@@ -45,7 +45,7 @@
 					API
 				</a>
 				<a
-					class="btn btn-sm variant-ghost-surface"
+					class="btn btn-sm variant-ghost-surface text-gray-100 dark:text-gray-950"
 					href="https://github.com/techhuntstudio/deckmaster"
 					target="_blank"
 					rel="noreferrer"
@@ -61,13 +61,13 @@
 						/>
 					{/if}
 					<span class="signedInText">
-						<small>Signed in as</small><br />
-						<strong>{$page.data.session.user?.name ?? "User"}</strong>
+						<small class="text-gray-100 dark:text-gray-950">Signed in as</small><br />
+						<strong class="text-gray-100 dark:text-gray-950">{$page.data.session.user?.name ?? "User"}</strong>
 					</span>
-					<button on:click={() => signOut()} class="btn btn-sm variant-ghost-surface">Sign out</button>
+					<button on:click={() => signOut()} class="btn btn-sm variant-ghost-surface text-gray-100 dark:text-gray-950">Sign out</button>
 				{:else}
-					<span class="notSignedInText">You are not signed in</span>
-					<button class="btn btn-sm variant-ghost-surface" on:click={() => signIn("github")}>Sign In with GitHub</button>
+					<span class="notSignedInText text-gray-100 dark:text-gray-950">You are not signed in</span>
+					<button class="btn btn-sm variant-ghost-surface text-gray-100 dark:text-gray-950" on:click={() => signIn("github")}>Sign In with GitHub</button>
 				{/if}
 				<LightSwitch />
 			</svelte:fragment>

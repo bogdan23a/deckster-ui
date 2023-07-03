@@ -12,7 +12,6 @@ export const actions = {
             retrieved[obj.value[0]] = obj.value[1];
             obj = form_data.next();
         }
-        console.log(retrieved);
         const deck = await saveDeck(retrieved);
         throw redirect(303, "/deck/" + deck.id);
     }

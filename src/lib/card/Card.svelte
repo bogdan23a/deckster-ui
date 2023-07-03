@@ -1,26 +1,20 @@
 <script lang='ts'>
     import { ListBoxItem } from '@skeletonlabs/skeleton';
+    import { page } from '$app/stores';
 	let valueSingle = 'books';
     let card_types = new Map([
         ["black", 1],
         ["white", 1]]);
     export let card: any;
+    // let deck = console.log($page.data.decks.content.filter((deck) => deck.id === $page.params.id));
+    console.log(card);
 </script>
 
 <ListBoxItem bind:group={valueSingle} name="medium" value="books">
-    <a class="block card card-hover p-4" href="/card/{card['id']}">
-        <header class="card-header">{card['name']}</header>
+    <a class="block card card-hover p-4 {card.type.name}" href="/card/{card.id}">
+        <header class="card-header">{card.content}</header>
         <section class="p-4"></section>
         <footer class="card-footer bottom-0">
-            {#each [...card_types] as [type, count]}
-                <p>{count} {type} 
-                    {#if count == 1} 
-                        card 
-                    {:else} 
-                        cards
-                    {/if}
-                </p>
-            {/each}
         </footer>
     </a>
 </ListBoxItem>

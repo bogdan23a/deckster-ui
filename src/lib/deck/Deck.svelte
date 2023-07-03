@@ -2,18 +2,17 @@
     export let deck: any;
     import { ListBoxItem } from '@skeletonlabs/skeleton';
 	let valueSingle = 'books';
-    let groups = deck["cards"]?.reduce((curr:any, val:any) => {
-        let group = curr.find(g => g['type']['name'] === `${val['type']['name']}`)
-        if (group) {
-            group.values = group.values + 1;
-        } else {
-            curr.push({ type: `${val['type']['name']}`, values: 1 }) 
+    let groups:any = deck["cards"]?.reduce((group:any, card:any) => {
+        const { type } = card;
+        if (type !== undefined) {
+            if (!group.has(type['name'])) {
+                return group.set(type['name'], 1);
+            }
+            group.set(type['name'], group.get(type['name']) + 1);
+            return group;
         }
-        return curr
-    }, [])
-    let card_types = new Map([
-        ["black", 0],
-        ["white", 0]]);
+        return new Map;
+    }, new Map);
 </script>
 
 <ListBoxItem bind:group={valueSingle} name="medium" value="books">
@@ -21,7 +20,7 @@
         <header class="card-header">{deck['name']}</header>
         <section class="p-4"></section>
         <footer class="card-footer bottom-0">
-            {#if groups}
+            {#if groups.size !== 0}
                 {#each [...groups] as [type, count]}
                     <p>{count} {type} 
                         {#if count == 1} 
