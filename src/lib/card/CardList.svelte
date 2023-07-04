@@ -1,16 +1,12 @@
 <script lang='ts'>
-	import { ListBox } from '@skeletonlabs/skeleton';
     import Card from '$lib/card/Card.svelte';
     export let cards:any;
 </script>
 
-{#if cards !== undefined}
-    <ListBox active=false>
-        {#each cards as card, index}
-            {#if index % 5 == 0}
-                <tr>
-            {/if}
-            <td><Card {card}/></td>
+{#if cards}
+    <div class="grid grid-cols-5 gap-1">
+        {#each cards as card}
+            <Card {card}/>
         {/each}
-    </ListBox>
+    </div>
 {/if}

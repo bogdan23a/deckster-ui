@@ -16,31 +16,21 @@
     const triggerAddDeckModal = () => modalStore.trigger(AddDeckModal);
 </script>
 
-<div class="container h-full mx-auto flex">
-	<table class=" flex-col w-full table-auto">
-		<tbody>
-			<tr>
-				<!-- <td>
-					<input class="input my-10" type="search" name="demo" bind:value={inputDemo} placeholder="Search..." />
-				</td> -->
-				{#if $page.data.session}
-					<td>
-						<button type="button" class="btn-icon btn-xl variant-filled" on:click={triggerAddDeckModal}>+</button>
-					</td>
-				{/if}
-			</tr>
-			<tr class="place-content-center">
-				{#await $page}
-					loading...
-				{:then $page}
-					{#if !$page.data.decks['empty']}
-						<DeckList decks={$page.data.decks.content}/>
-					{/if}
-				{:catch error}
-					{error}
-				{/await}
-				<!-- <div use:inview={{}} on:change={handleChange} /> -->
-			</tr>
-		</tbody>
-	</table>
+<div class="container mt-6 mx-auto">
+	<div>
+		{#if $page.data.session}
+			<button type="button" class="btn-icon btn-xl variant-filled float-right" on:click={triggerAddDeckModal}>+</button>
+		{/if}
+	</div>
+	<div class="flex-auto mt-6">
+		{#await $page}
+			loading...
+		{:then $page}
+			{#if !$page.data.decks['empty']}
+				<DeckList decks={$page.data.decks.content}/>
+			{/if}
+		{:catch error}
+			{error}
+		{/await}
+	</div>
 </div>

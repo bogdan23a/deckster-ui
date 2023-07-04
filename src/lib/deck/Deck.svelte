@@ -1,7 +1,5 @@
 <script lang='ts'>
     export let deck: any;
-    import { ListBoxItem } from '@skeletonlabs/skeleton';
-	let valueSingle = 'books';
     let groups:any = deck["cards"]?.reduce((group:any, card:any) => {
         const { type } = card;
         if (type !== undefined) {
@@ -15,7 +13,7 @@
     }, new Map);
 </script>
 
-<ListBoxItem bind:group={valueSingle} name="medium" value="books">
+<div class="pt-6">
     <a class="block card card-hover p-4" href="/deck/{deck['id']}">
         <header class="card-header">{deck['name']}</header>
         <section class="p-4"></section>
@@ -35,7 +33,7 @@
             {/if}
         </footer>
     </a>
-</ListBoxItem>
+</div>
 
 <style lang="postcss">
 	.card {

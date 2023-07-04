@@ -1,14 +1,11 @@
 <script lang='ts'>
-	import { ListBox } from '@skeletonlabs/skeleton';
+
     import Deck from '$lib/deck/Deck.svelte';
     export let decks:any;
 </script>
 
-<ListBox active=false>
-    {#each decks as deck, index}
-        {#if index % 5 == 0}
-            <tr>
-        {/if}
-        <td><Deck {deck}/></td>
+<div class="grid grid-cols-5 gap-1">
+    {#each decks as deck}
+        <td><Deck {deck}/>
     {/each}
-</ListBox>
+</div>
