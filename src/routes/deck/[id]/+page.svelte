@@ -12,7 +12,7 @@
     <div>
         <h2 class="h1">{deck.name}</h2>
         {#if $page.data.session}
-            <button type="button" class="btn-icon btn-xl variant-filled float-right" on:click={triggerAddCardModal}>+</button>
+            <button type="button" class="btn-icon btn-xl variant-filled float-right" onclick={triggerAddCardModal}>+</button>
         {/if}
     </div>
     <div class="flex-auto mt-6">

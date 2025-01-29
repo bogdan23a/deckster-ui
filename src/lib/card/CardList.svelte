@@ -1,6 +1,10 @@
 <script lang='ts'>
     import Card from '$lib/card/Card.svelte';
-    export let cards:any;
+    interface Props {
+        cards: any;
+    }
+
+    let { cards }: Props = $props();
 </script>
 
 {#if cards}

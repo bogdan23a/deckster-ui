@@ -1,10 +1,14 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 
-	export let parent: any;
-	export let form: any;
 
 	import { modalStore } from '@skeletonlabs/skeleton';
+	interface Props {
+		parent: any;
+		form: any;
+	}
+
+	let { parent, form }: Props = $props();
 
 	// Base Classes
 	const cBase = 'card p-4 w-modal shadow-xl space-y-4';
@@ -29,7 +33,7 @@
 			</label>
 			<!-- prettier-ignore -->
 			<footer class="modal-footer {parent.regionFooter}">
-				<button class="btn {parent.buttonNeutral}" on:click={parent.onClose}>{parent.buttonTextCancel}</button>
+				<button class="btn {parent.buttonNeutral}" onclick={parent.onClose}>{parent.buttonTextCancel}</button>
 				<button class="btn {parent.buttonPositive}">Submit</button>
 			</footer>
 		</form>

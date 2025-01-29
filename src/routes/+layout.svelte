@@ -11,6 +11,11 @@
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import { signIn, signOut } from '@auth/sveltekit/client';
+	interface Props {
+		children?: import('svelte').Snippet;
+	}
+
+	let { children }: Props = $props();
 	
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
@@ -24,55 +29,61 @@
 <Modal/>
 <!-- App Shell -->
 <AppShell>
-	<svelte:fragment slot="header">
-		<!-- App Bar -->
-		<AppBar gridColumns="grid-cols-3" slotDefault="place-self-center" slotTrail="place-content-end" background="bg-gray-950 dark:bg-gray-100">
-			<svelte:fragment slot="lead">(icon)</svelte:fragment>
-			<strong class="text-xl capitalize text-gray-100 dark:text-gray-950">
-				<a 
-				    href="/"
-				>
-					Deckmaster {env}
-				</a>
-			</strong>
-			<svelte:fragment slot="trail">
-				<a
-					class="btn btn-sm variant-ghost-surface text-gray-100 dark:text-gray-950"
-					href={swaggerUi}
-					target="_blank"
-					rel="noreferrer"
-				>
-					API
-				</a>
-				<a
-					class="btn btn-sm variant-ghost-surface text-gray-100 dark:text-gray-950"
-					href="https://github.com/techhuntstudio/deckmaster"
-					target="_blank"
-					rel="noreferrer"
-				>
-					GitHub
-				</a>
+	{#snippet header()}
+	
+			<!-- App Bar -->
+			<AppBar gridColumns="grid-cols-3" slotDefault="place-self-center" slotTrail="place-content-end" background="bg-gray-950 dark:bg-gray-100">
+				{#snippet lead()}
+						(icon)
+					{/snippet}
+				<strong class="text-xl capitalize text-gray-100 dark:text-gray-950">
+					<a 
+					    href="/"
+					>
+						Deckmaster {env}
+					</a>
+				</strong>
+				{#snippet trail()}
+					
+						<a
+							class="btn btn-sm variant-ghost-surface text-gray-100 dark:text-gray-950"
+							href={swaggerUi}
+							target="_blank"
+							rel="noreferrer"
+						>
+							API
+						</a>
+						<a
+							class="btn btn-sm variant-ghost-surface text-gray-100 dark:text-gray-950"
+							href="https://github.com/techhuntstudio/deckmaster"
+							target="_blank"
+							rel="noreferrer"
+						>
+							GitHub
+						</a>
 
-				{#if $page.data.session}
-					{#if $page.data.session.user?.image}
-						<span
-							style="background-image: url('{$page.data.session.user.image}')"
-							class="avatar"
-						/>
-					{/if}
-					<span class="signedInText">
-						<small class="text-gray-100 dark:text-gray-950">Signed in as</small><br />
-						<strong class="text-gray-100 dark:text-gray-950">{$page.data.session.user?.name ?? "User"}</strong>
-					</span>
-					<button on:click={() => signOut()} class="btn btn-sm variant-ghost-surface text-gray-100 dark:text-gray-950">Sign out</button>
-				{:else}
-					<span class="notSignedInText text-gray-100 dark:text-gray-950">You are not signed in</span>
-					<button class="btn btn-sm variant-ghost-surface text-gray-100 dark:text-gray-950" on:click={() => signIn("github")}>Sign In with GitHub</button>
-				{/if}
-				<LightSwitch />
-			</svelte:fragment>
-		</AppBar>
-	</svelte:fragment>
+						{#if $page.data.session}
+							{#if $page.data.session.user?.image}
+								<span
+									style="background-image: url('{$page.data.session.user.image}')"
+									class="avatar"
+								></span>
+							{/if}
+							<span class="signedInText">
+								<small class="text-gray-100 dark:text-gray-950">Signed in as</small><br />
+								<strong class="text-gray-100 dark:text-gray-950">{$page.data.session.user?.name ?? "User"}</strong>
+							</span>
+							<button onclick={() => signOut()} class="btn btn-sm variant-ghost-surface text-gray-100 dark:text-gray-950">Sign out</button>
+						{:else}
+							<span class="notSignedInText text-gray-100 dark:text-gray-950">You are not signed in</span>
+							<button class="btn btn-sm variant-ghost-surface text-gray-100 dark:text-gray-950" onclick={() => signIn("github")}>Sign In with GitHub</button>
+						{/if}
+						<LightSwitch />
+					
+					{/snippet}
+			</AppBar>
+		
+	{/snippet}
 	<!-- Page Route Content -->
-	<slot />
+	{@render children?.()}
 </AppShell>

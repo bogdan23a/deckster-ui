@@ -1,3 +1,5 @@
+<!-- @migration-task Error while migrating Svelte code: Unexpected block closing tag
+https://svelte.dev/e/block_unexpected_close -->
 <script lang='ts'>
         import { ListBox,  } from '@skeletonlabs/skeleton';
         import EditableDeck from '$lib/deck/EditableDeck.svelte';

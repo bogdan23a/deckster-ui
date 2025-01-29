@@ -2,10 +2,14 @@
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
 
-	export let parent: any;
-	export let form: any;
 
 	import { modalStore } from '@skeletonlabs/skeleton';
+	interface Props {
+		parent: any;
+		form: any;
+	}
+
+	let { parent, form }: Props = $props();
 
 	const types = [{
 			id: "321",
@@ -51,7 +55,7 @@
 			</label>
 			<!-- prettier-ignore -->
 			<footer class="modal-footer {parent.regionFooter}">
-				<button class="btn {parent.buttonNeutral}" on:click={parent.onClose}>{parent.buttonTextCancel}</button>
+				<button class="btn {parent.buttonNeutral}" onclick={parent.onClose}>{parent.buttonTextCancel}</button>
 				<button class="btn {parent.buttonPositive}">Submit</button>
 			</footer>
 		</form>

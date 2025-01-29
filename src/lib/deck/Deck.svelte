@@ -1,5 +1,9 @@
 <script lang='ts'>
-    export let deck: any;
+    interface Props {
+        deck: any;
+    }
+
+    let { deck }: Props = $props();
     let groups:any = deck["cards"]?.reduce((group:any, card:any) => {
         const { type } = card;
         if (type !== undefined) {

@@ -1,10 +1,14 @@
 <script lang='ts'>
-	export let data:any;
 	import { page } from '$app/stores';
 	import DeckList from '../lib/deck/DeckList.svelte';
 	import { inview } from 'svelte-inview/dist/index';
     import { modalStore } from '@skeletonlabs/skeleton';
     import { AddDeckModal } from '$lib/deck/modal/AddDeckModal';
+	interface Props {
+		data: any;
+	}
+
+	let { data }: Props = $props();
 
 	let inputDemo = '';
 	let decks = data.decks;
@@ -19,7 +23,7 @@
 <div class="container mt-6 mx-auto">
 	<div>
 		{#if $page.data.session}
-			<button type="button" class="btn-icon btn-xl variant-filled float-right" on:click={triggerAddDeckModal}>+</button>
+			<button type="button" class="btn-icon btn-xl variant-filled float-right" onclick={triggerAddDeckModal}>+</button>
 		{/if}
 	</div>
 	<div class="flex-auto mt-6">

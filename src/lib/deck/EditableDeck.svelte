@@ -2,11 +2,15 @@
 	import { goto } from '$app/navigation';
     import { ListBoxItem, type PopupSettings } from '@skeletonlabs/skeleton';
     import { popup } from '@skeletonlabs/skeleton';
-	let valueSingle = 'books';
+	let valueSingle = $state('books');
     let card_types = new Map([
         ["black", 1],
         ["white", 1]]);
-    export let deck: any;
+    interface Props {
+        deck: any;
+    }
+
+    let { deck }: Props = $props();
     const deleteDeck = (e: PointerEvent) => {
         console.log(e.target['id']);
         fetch(import.meta.env.VITE_DECKMASTER_URI + "/deck/" + e.target['id'], {
@@ -48,9 +52,9 @@
     <div class="p-4 variant-filled-surface" data-popup="popupClick">
         <div class="grid grid-cols-1 gap-2">
             <button id="wont-close" class="btn variant-filled-warning">Edit</button>
-            <button id={deck['id']} class="btn variant-filled-error deleteButton" on:click={deleteDeck}>Delete</button>
+            <button id={deck['id']} class="btn variant-filled-error deleteButton" onclick={deleteDeck}>Delete</button>
         </div>
-        <div class="arrow bg-surface-100-800-token" />
+        <div class="arrow bg-surface-100-800-token"></div>
     </div>
 </ListBoxItem>
 
