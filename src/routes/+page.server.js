@@ -13,6 +13,6 @@ export const actions = {
             obj = form_data.next();
         }
         const deck = await saveDeck(retrieved);
-        throw redirect(303, "/deck/" + deck.id);
+        redirect(303, "/deck/" + deck.id);
     }
 }

@@ -13,6 +13,6 @@ export const actions = {
             obj = form_data.next();
         }
         const card = await saveCard(retrieved);
-        throw redirect(303, "/")
+        redirect(303, "/");
     }
 }
