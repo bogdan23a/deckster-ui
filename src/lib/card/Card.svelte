@@ -29,13 +29,13 @@
         font-size: 20px;
         line-height: 26px;
     }
-	.Black {
+	.Prompt {
         border-color: rgb(255, 255, 255);
         background-color: rgb(0, 0, 0) !important;
         color: rgb(255, 255, 255);
 	}
 
-    .White {
+    .Response {
         border-color: rgb(0, 0, 0);
         background-color: rgb(255, 255, 255) !important;
         color: rgb(0, 0, 0);

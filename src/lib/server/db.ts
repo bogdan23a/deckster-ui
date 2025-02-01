@@ -1,6 +1,6 @@
-const size = 10
+const size = 100
 
-export const getDecksPage = async (page:any) => fetch(import.meta.env.VITE_DECKMASTER_URI + `/deck?page=${page}&size=${size}`)
+export const getDecksPage = async () => fetch(import.meta.env.VITE_DECKMASTER_URI + `/deck`)
     .then(response => {
         if (response.ok) {
             return response.json()

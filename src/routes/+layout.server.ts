@@ -3,7 +3,7 @@ import { getDecksPage } from "$lib/server/db";
 
 export const load: LayoutServerLoad = async (event) => {
   return {
-    session: await event.locals.getSession(),
-    decks: await getDecksPage(0)
+    session: await event.locals.auth(),
+    decks: await getDecksPage()
   };
 };

@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 
-
-	import { modalStore } from '@skeletonlabs/skeleton';
 	interface Props {
 		parent: any;
 		form: any;
@@ -16,15 +14,15 @@
 	const cForm = 'border border-surface-500 p-4 space-y-4 rounded-container-token';
 </script>
 
-{#if $modalStore[0]}
+<!-- {#if $modalStore[0]} -->
 	<div class="modal-example-form {cBase}">
-		<header class={cHeader}>{$modalStore[0].title ?? '(title missing)'}</header>
-		<article>{$modalStore[0].body ?? '(body missing)'}</article>
+		<!-- <header class={cHeader}>{$modalStore[0].title ?? '(title missing)'}</header> -->
+		<!-- <article>{$modalStore[0].body ?? '(body missing)'}</article> -->
 		<!-- Enable for debugging: -->
 		<form class="modal-form {cForm}" action="?/save" method="POST" use:enhance={() => {
 			return async ({ update }) => {
 				await update();
-				modalStore.close();
+				// modalStore.close();
 			}
 		}}>
 			<label class="label">
@@ -38,4 +36,4 @@
 			</footer>
 		</form>
 	</div>
-{/if}
+<!-- {/if} -->

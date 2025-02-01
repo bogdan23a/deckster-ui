@@ -4,6 +4,7 @@
     }
 
     let { deck }: Props = $props();
+    
     let groups:any = deck["cards"]?.reduce((group:any, card:any) => {
         const { type } = card;
         if (type !== undefined) {
@@ -24,7 +25,7 @@
         <footer class="card-footer bottom-0">
             {#if groups.size !== 0}
                 {#each [...groups] as [type, count]}
-                    <p>{count} {type} 
+                    <p>{count} {type.toLowerCase()} 
                         {#if count == 1} 
                             card 
                         {:else} 
