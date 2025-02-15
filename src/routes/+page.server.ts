@@ -1,6 +1,16 @@
 import { saveDeck } from '$lib/server/db';
 import { redirect } from '@sveltejs/kit';
 
+import type { PageServerLoad } from "./$types";
+import { getDecksPage } from "$lib/server/db";
+
+export const load: PageServerLoad = async (event) => {
+  return {
+    session: await event.locals.auth(),
+    decks: await getDecksPage()
+  };
+};
+
 /** @type {import('./$types').Actions} */
 export const actions = {
     save: async ({ request }) => {

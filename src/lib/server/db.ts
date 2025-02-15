@@ -64,3 +64,39 @@ export const getCardTypes = () => fetch(import.meta.env.VITE_DECKMASTER_URI + "/
         }
         throw new Error(`Failed to find card types. Status ${response.status}`);
     }).catch((error) => console.log(error));
+
+export const createNewGame = (email: string) => fetch(import.meta.env.VITE_DECKMASTER_URI + "/game", {
+    method: 'PUT',
+    headers: {
+        "Content-Type": "application/json",
+        "email": email
+    }})
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error(`Failed to create new game. Status ${response.status}`);
+    }).catch((error) => console.log(error));
+
+export const getGame = (email: string, gameId: string) => fetch(import.meta.env.VITE_DECKMASTER_URI + `/game`, {
+    headers: {
+        "email": email,
+        "game_id": gameId
+    }})
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error(`Failed to find game ${gameId}. Status ${response.status}`);
+    }).catch((error) => console.log(error));
+
+export const getTask = (gameId: string, state: string) => fetch(import.meta.env.VITE_DECKMASTER_URI + `/task/${state}`, {
+    headers: {
+        "game_id": gameId
+    }})
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error(`Failed to find task ${state}. Status ${response.status}`);
+    }).catch((error) => console.log(error));

@@ -19,6 +19,7 @@
 		// }
 	// }
     // const triggerAddDeckModal = () => modalStore.trigger(AddDeckModal);
+	// console.log(data.session.user);
 </script>
 
 <div class="container mt-6 mx-auto">
