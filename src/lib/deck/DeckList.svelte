@@ -3,8 +3,15 @@
     let { decks } = $props();
 </script>
 
-<tr class="grid grid-cols-5 gap-1">
-    {#each decks as deck}
-        <td><Deck {deck}/></td>
-    {/each}
-</tr>
+<!-- <tr class="grid grid-cols-5 gap-1"> -->
+    <select name="deckId">
+        {#each decks as deck}
+            <option value={deck.id}>
+                <!-- <td> -->
+                {deck.name}    
+                <!-- <Deck {deck}/> -->
+                <!-- </td> -->
+            </option>
+        {/each}
+    </select>
+<!-- </tr> -->

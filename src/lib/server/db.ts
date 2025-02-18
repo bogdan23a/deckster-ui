@@ -90,13 +90,36 @@ export const getGame = (email: string, gameId: string) => fetch(import.meta.env.
         throw new Error(`Failed to find game ${gameId}. Status ${response.status}`);
     }).catch((error) => console.log(error));
 
-export const getTask = (gameId: string, state: string) => fetch(import.meta.env.VITE_DECKMASTER_URI + `/task/${state}`, {
+export const getTask = (gameId: string, state: string, email: string) => fetch(import.meta.env.VITE_DECKMASTER_URI + `/task/${state}`, {
+    method: 'POST',
     headers: {
-        "game_id": gameId
-    }})
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        game_id: gameId,
+        email: email
+    })})
     .then(response => {
         if (response.ok) {
             return response.json();
         }
         throw new Error(`Failed to find task ${state}. Status ${response.status}`);
+    }).catch((error) => console.log(error));
+
+export const sendEvent = (message: { game_id: string, email: string, deck_id: string }, event: string) => fetch(import.meta.env.VITE_DECKMASTER_URI + `/game/${event}`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            game_id: message.game_id,
+            email: message.email,
+            deck_id: message.deck_id
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error(`Failed to send event ${event}. Status ${response.status}`);
     }).catch((error) => console.log(error));
