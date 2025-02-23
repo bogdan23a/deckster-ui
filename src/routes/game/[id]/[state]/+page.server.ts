@@ -21,23 +21,34 @@ export const actions = {
   SET_GAME: async(event) => {
     let { params } = event;
     let session = await event.locals.auth();
-    let newState = await sendEvent({ game_id: params.id || '', email: session?.user?.email || '', deck_id: ''}, "SET_GAME");
+    let message = { game_id: params.id || '', email: session?.user?.email || '', deck_id: '', card_id: ''};
+    let newState = await sendEvent(message, "SET_GAME");
     redirect(303, `/game/${params.id}/${newState.state}`)
   },
   GAME_SET: async(event) => {
     let { params, request } = event;
-    let deckId = (await request.formData()).get("deckId");
+    let formData = await request.formData();
+    let deckId = formData.get("deckId");
+    console.log(...formData);
     let session = await event.locals.auth();
-    let message = { game_id: params.id || '', email: session?.user?.email || '', deck_id:  deckId?.toString() || '' };
+    let message = { game_id: params.id || '', email: session?.user?.email || '', deck_id:  deckId?.toString() || '', card_id: ''};
     let newState = await sendEvent(message, "GAME_SET");
     redirect(303, `/game/${params.id}/${newState.state}`)
   },
-  RESPONDED: async(event) => {
+  RESPOND: async(event) => {
     let { params, request } = event;
     let cardId = (await request.formData()).get("cardId");
     let session = await event.locals.auth();
     let message = { game_id: params.id || '', email: session?.user?.email || '', deck_id: '', card_id: cardId?.toString() || '' };
-    let newState = await sendEvent(message, "GAME_SET");
+    let newState = await sendEvent(message, "RESPOND");
+    redirect(303, `/game/${params.id}/${newState.state}`)
+  },
+  PICK_WINNER: async(event) => {
+    let { params, request } = event;
+    let cardId = (await request.formData()).get("cardId");
+    let session = await event.locals.auth();
+    let message = { game_id: params.id || '', email: session?.user?.email || '', deck_id: '', card_id: cardId?.toString() || '' };
+    let newState = await sendEvent(message, "PICK_WINNER");
     redirect(303, `/game/${params.id}/${newState.state}`)
   }
 } satisfies Actions
