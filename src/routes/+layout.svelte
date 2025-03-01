@@ -4,6 +4,7 @@
 	import { signIn, signOut } from '@auth/sveltekit/client';
 	import AddDeck from "$lib/deck/AddDeck.svelte";
 	import { SignIn } from "@auth/sveltekit/components";
+	import { page } from "$app/stores";
 
 	let { children, data } = $props();
 	
@@ -46,16 +47,16 @@
 			GitHub
 		</a>
 
-		{#if data.session}
-			{#if data.session.user?.image}
+		{#if $page.data.session}
+			{#if $page.data.session.user?.image}
 				<span
-					style="background-image: url('{data.session.user.image}')"
+					style="background-image: url('{$page.data.session.user.image}')"
 					class="avatar"
 				></span>
 			{/if}
 			<span class="signedInText">
 				<small class="text-gray-100 dark:text-gray-950">Signed in as</small><br />
-				<strong class="text-gray-100 dark:text-gray-950">{data.session?.user?.name ?? "User"}</strong>
+				<strong class="text-gray-100 dark:text-gray-950">{$page.data.session?.user?.name ?? "User"}</strong>
 			</span>
 			<button onclick={() => signOut()} class="btn btn-sm variant-ghost-surface text-gray-100 dark:text-gray-950">Sign out</button>
 		{:else}
