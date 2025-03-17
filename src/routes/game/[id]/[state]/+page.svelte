@@ -31,19 +31,9 @@
         }
 
         client.activate();
-        // const interval = setInterval(() => {
-        //     console.log("refreshing")
-        //     invalidateAll();
-        // }, 1000);
-        // return () => {
-        //     clearInterval(interval);
-        // };
     });
 </script>
 
-<!-- <GameState id={data.game.id} title={data.game.state} nextState={null}/> -->
 <form method="POST" action="/game">
     <GameTask task={data.task}/>
 </form>
-
-<!-- <button onclick={() => }>send</button> -->

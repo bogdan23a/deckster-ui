@@ -9,7 +9,7 @@
 </script>
 
 <button class="pt-6 pr-4" onclick={() => onClick(card)} type="button">
-    <div class="block card card-hover {card.type.name} {selected ? 'border-4 font-bold' : 'border-2 font-normal'}">
+    <div class="block card card-hover {card.type.name} {selected ? 'border-4 font-bold' : 'border-2 font-normal'} hover:border-4">
         <header class="card-header"></header>
         <section class="p-4">{card.content}</section>
         <footer class="card-footer bottom-0"></footer>
@@ -24,10 +24,8 @@
         width: 200px;
         height: 280px;
         border-style: solid;
-        /* border-width: 2px; */
         border-radius: 13px;
         font-family:  Neue LT,-apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,sans-serif;
-        /* font-weight: 400; */
         font-size: 20px;
         line-height: 26px;
     }

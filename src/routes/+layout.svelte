@@ -5,8 +5,13 @@
 	import AddDeck from "$lib/deck/AddDeck.svelte";
 	import { SignIn } from "@auth/sveltekit/components";
 	import type { PageProps } from "./$types";
+	import type { Snippet } from "svelte";
 
-	let { data }: PageProps = $props();
+	type Props = {
+		children: Snippet,
+		data: PageProps
+	}
+	let { data, children }: Props = $props();
 	const env = import.meta.env.VITE_DECKMASTER_ENVIRONMENT;
 	const swaggerUi = import.meta.env.VITE_SWAGGER_API;
 </script>
@@ -65,4 +70,4 @@
 	{/snippet}
 </AppBar>
 
-<!-- {@render children()} -->
+{@render children()}
