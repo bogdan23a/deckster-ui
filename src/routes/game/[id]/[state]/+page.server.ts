@@ -15,7 +15,7 @@ export const load: PageServerLoad = async (event) => {
   }
   const task = await getTask(params.id, params.state, session?.user?.email || '');
   return {
-    session: await event.locals.auth(),
+    session,
     game,
     task, 
   };
@@ -42,6 +42,7 @@ export const actions = {
   RESPOND: async(event) => {
     let { params, request } = event;
     let cardId = (await request.formData()).get("cardId");
+    console.log("Card:", cardId);
     let session = await event.locals.auth();
     let message = { game_id: params.id || '', email: session?.user?.email || '', deck_id: '', card_id: cardId?.toString() || '' };
     let newState = await sendEvent(message, "RESPOND");

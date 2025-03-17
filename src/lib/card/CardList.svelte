@@ -8,12 +8,7 @@
 </script>
 
 {#if cards}
-    <div class="grid grid-cols-5 gap-1">
-        <select name="cardId">
-        {#each cards as card}
-            <option value = {card.id}>{card.content}</option> 
-            <!-- <Card {card}/> -->
-        {/each}
-        </select>
-    </div>
+    {#each cards as card}
+        <Card {card}/>
+    {/each}
 {/if}

@@ -1,13 +1,13 @@
 <script lang='ts'>
 	import CardList from '$lib/card/CardList.svelte';
-	import { AddCardModal } from '$lib/card/modal/AddCardModal.js';
+	// import { AddCardModal } from '$lib/card/modal/AddCardModal.js';
 	import type { PageProps } from './$types';
     import { page } from '$app/state';
 
 	let { data }: PageProps = $props();
 
     // const triggerAddCardModal = () => modalStore.trigger(AddCardModal);
-    let deck:any = data.decks.filter((deck: { id: any; }) => deck.id === page.params.id)[0];
+    let deck:any = data.deck.filter((deck: { id: any; }) => deck.id === page.params.id)[0];
 </script>
 
 <div class="container mt-6 mx-auto">

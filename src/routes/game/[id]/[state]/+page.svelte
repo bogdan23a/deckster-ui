@@ -1,10 +1,8 @@
 <script lang='ts'>
-	import GameState from '$lib/game/GameState.svelte';
 	import GameTask from '$lib/game/GameTask.svelte';
 	import { onMount } from 'svelte';
-	import { goto, invalidate, invalidateAll } from '$app/navigation';
+	import { goto } from '$app/navigation';
 	import { Client } from '@stomp/stompjs';
-	import { redirect } from '@sveltejs/kit';
 
     let { data } = $props();
 
@@ -14,7 +12,6 @@
         await sleep(100).then(() => {
             goto(`/refresh/${data.game.id}/${data.game.state}`);
         });
-        // invalidateAll().then(() => console.log("Succesfully invalidated all")).catch((error) => console.log("Unable to invalidate all")).finally(() => console.log("after invalidate all"));
     };
     onMount(() => {
         const client = new Client({
@@ -44,7 +41,7 @@
     });
 </script>
 
-<GameState id={data.game.id} title={data.game.state} nextState={null}/>
+<!-- <GameState id={data.game.id} title={data.game.state} nextState={null}/> -->
 <form method="POST" action="/game">
     <GameTask task={data.task}/>
 </form>

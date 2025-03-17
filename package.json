@@ -41,9 +41,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@auth/core": "^0.9.0",
 		"@auth/sveltekit": "^1.7.4",
-		"@auth0/auth0-spa-js": "^2.0.8",
 		"@stomp/stompjs": "^7.0.0",
 		"@tailwindcss/vite": "^4.0.1",
 		"@types/sockjs-client": "^1.5.4",
