@@ -10,7 +10,14 @@
 
 <div class="m-4">
     {#each Object.keys(display) as title}
+        <p>
+            {title}:
+            {#if display[title].input_type === "LINK"}
+                <button class="btn hover:border-t-cyan-200" onclick={() => navigator.share()}>share</button>
+            {/if}
+        </p>
         {#if display[title].input_type === "LIST"}
+            <h1>{console.log(display[title])}</h1>
             {#each Object.keys(display[title].values) as item}
                 <li>{display[title].values[item].email}</li>
             {/each}

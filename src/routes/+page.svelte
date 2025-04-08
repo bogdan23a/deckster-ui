@@ -1,74 +1,24 @@
 <script lang='ts'>
-	import DeckList from '../lib/deck/DeckList.svelte';
-    import { AddDeckModal } from '$lib/deck/modal/AddDeckModal';
+	import { goto } from '$app/navigation';
+	import { signIn, signOut } from '@auth/sveltekit/client';
 	import type { PageProps } from './$types';
-	import { Modal } from '@skeletonlabs/skeleton-svelte';
-
-	let openState = $state(false);
-
-	function modalClose() {
-		openState = false;
-	}
-
 	let { data }: PageProps = $props();
-
-	let inputDemo = '';
-	// const handleChange = (event) => {
-		// if (event.detail.inView && page['pageNumber'] + 1 !== page['totalPage']) {
-			// getDecksPage(page['pageNumber'] + 1);
-		// }
-	// }
-    // const triggerAddDeckModal = () => modalStore.trigger(AddDeckModal);
-	// console.log(data.session.user);
+	let newGameUrl = "/game/DRAFT"
 </script>
 
-<div class="container mt-6 mx-auto">
-	<div>
-		{#if data.session}
-
-		<Modal bind:open={openState}
-			triggerBase="btn preset-tonal"
-			contentBase="card bg-surface-100-900 p-4 space-y-4 shadow-xl max-w-screen-sm"
-			backdropClasses="backdrop-blur-sm">
-
-			{#snippet trigger()}
-			+
-			{/snippet}
-			{#snippet content()}
-			<div class="modal-example-form card p-4 w-modal shadow-xl space-y-4">
-				<header class="text-2xl font-bold">Add A New Deck</header>
-				<!-- <article>{$modalStore[0].body ?? '(body missing)'}</article> -->
-				<!-- Enable for debugging: -->
-				<form class="modal-form border border-surface-500 p-4 space-y-4 rounded-container-token" action="?/save" method="POST" use:enhance={() => {
-					return async ({ update }) => {
-						await update();
-						// modalStore.close();
-					}
-				}}>
-					<label class="label">
-						<span>Name</span>
-						<input class="input" type="text" placeholder="Enter name..." name="name" required/>
-					</label>
-					<!-- prettier-ignore -->
-					<footer class="modal-footer">
-						<button class="btn" onclick={modalClose}>Close</button>
-						<button class="btn">Submit</button>
-					</footer>
-				</form>
-			</div>
-			{/snippet}
-
-		</Modal>
-			<!-- <button type="button" class="btn-icon btn-xl variant-filled float-right">+</button> -->
-		{/if}
-	</div>
-	<div class="flex-auto mt-6">
+<div class="container mt-12 mx-auto">
+	<div class="grid grid-cols-1 place-content-stretch mx-96">
 		{#await data}
 			loading...
 		{:then data}
-			<!-- {#if !data.decks['empty']} -->
-				<DeckList decks={data.decks}/>
-			<!-- {/if} -->
+			<h1 class="m-4 p-4 text-3xl flex justify-center">Main Menu</h1>
+			{#if data.session}
+				<button class="btn btn-primary bg-white border-black border-2 rounded-xl p-4 hover:boder-4 active:font-bold m-4" onclick={() => goto(newGameUrl)}>New Game</button>
+				<button class="btn btn-primary bg-white border-black border-2 rounded-xl p-4 hover:boder-4 active:font-bold m-4" onclick={() => signOut()}>Log Out</button>
+			{:else}
+				<button class="btn btn-primary bg-white border-black border-2 rounded-xl p-4 hover:border-4 active:font-bold m-4" onclick={() => signIn("github")}>Log In With Github</button>
+				<button class="btn btn-primary bg-white border-black border-2 rounded-xl p-4 hover:border-4 active:font-bold m-4" onclick={() => signIn("auth0")}>Log In With Email</button>
+			{/if}
 		{:catch error}
 			{error}
 		{/await}
