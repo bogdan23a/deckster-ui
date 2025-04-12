@@ -4,9 +4,8 @@
         cards: any;
         selectedResponses: any;
         requiredResponses: number;
-        events: any[];
     }
-    let { cards, requiredResponses, selectedResponses = $bindable(), events }: Props = $props();
+    let { cards, requiredResponses, selectedResponses = $bindable() }: Props = $props();
 
     let stateCards: any[] = $state(cards);
     let selectedCards: any[] = $state(stateCards.slice(0, requiredResponses));
@@ -42,18 +41,7 @@
 
 {#if cards}
     <input type="hidden" hidden bind:value={selectedIds} name="cardIds[]">
-    {#if events[0] === 'PICK_WINNER'}
-    {#each stateCards as cardGroup}
-
-        <CardGroupOption {cardGroup} selected={selectedCards.includes}
-        {#each cardGroup as card}
-            <CardOption {card} selected={selectedCards.includes(card)} {onClick} selectionIndex={getSelectionIndex(card)}/>
-        {/each}
-    {/each}
-    {:else}
     {#each stateCards as card}
-        {console.log(card)}
         <CardOption {card} selected={selectedCards.includes(card)} {onClick} selectionIndex={getSelectionIndex(card)}/>
     {/each}
-    {/if}
 {/if}

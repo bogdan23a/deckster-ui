@@ -106,7 +106,7 @@ export const getTask = (gameId: string, state: string, email: string) => fetch(i
         throw new Error(`Failed to find task ${state}. Status ${response.status}`);
     }).catch((error) => console.log(error));
 
-export const sendEvent = (message: { game_id: string, email: string, deck_id: string, card_ids: string }, event: string) => fetch(import.meta.env.VITE_DECKMASTER_URI + `/game/${event}`, {
+export const sendEvent = (message: { game_id: string, email: string, deck_id: string, card_ids: string, response_group: string }, event: string) => fetch(import.meta.env.VITE_DECKMASTER_URI + `/game/${event}`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
@@ -115,7 +115,8 @@ export const sendEvent = (message: { game_id: string, email: string, deck_id: st
             game_id: message.game_id,
             email: message.email,
             deck_id: message.deck_id,
-            card_ids: message.card_ids
+            card_ids: message.card_ids,
+            response_group: message.response_group
         })
     })
     .then(response => {

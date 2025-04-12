@@ -1,4 +1,5 @@
 <script lang="ts">
+	import CardGroupPicker from "$lib/card/CardGroupPicker.svelte";
 	import CardList from "$lib/card/CardList.svelte";
 	import CardPicker from "$lib/card/CardPicker.svelte";
 	import PlayersCard from "$lib/card/PlayersCard.svelte";
@@ -40,9 +41,9 @@
         {/if}
         {#if detail.input.input_type === "CARD_PICKER"}
             {#if detail.label === "WINNER"}
-                <CardPicker {events} cards={detail.input.values} bind:selectedResponses requiredResponses={1}/>
+                <CardGroupPicker cardGroups={detail.input.values} bind:selectedResponses/>
             {:else}
-                <CardPicker {events} cards={detail.input.values} bind:selectedResponses requiredResponses={prompts}/>
+                <CardPicker cards={detail.input.values} bind:selectedResponses requiredResponses={prompts}/>
             {/if}
         {/if}
         {#if detail.input.input_type === "DECK_PICKER"}
@@ -51,8 +52,9 @@
         {#if detail.input.input_type === "SCORE"}
             <ScoreCard players={detail.input.values} />
         {/if}
+        
     {/each}
 </div>
 {#each events as event}
-    <button class="btn btn-primary bg-white border-black border-2 rounded-xl p-4 hover:boder-4 hover:font-bold disabled:border-2 disabled:font-normal disabled:bg-gray-200 disabled:text-gray-500 disabled:border-gray-500 m-4" disabled={selectedResponses !== prompts} value={event} type="submit" formaction="?/{event}">{event.replace("_", " ")}</button>
+    <button class="btn btn-primary bg-white border-black border-2 rounded-xl p-4 hover:boder-4 hover:font-bold disabled:border-2 disabled:font-normal disabled:bg-gray-200 disabled:text-gray-500 disabled:border-gray-500 m-4" disabled={event === "PICK_WINNER" ? selectedResponses !== 1 : selectedResponses !== prompts} value={event} type="submit" formaction="?/{event}">{event.replace("_", " ")}</button>
 {/each}

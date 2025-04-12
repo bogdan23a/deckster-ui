@@ -10,8 +10,8 @@
     <div class="block card card-hover Response">
         <header class="card-header p-2">Score</header>
         <section class="p-4">
-            {#each Object.keys(players) as player}
-                <p>{players[player].first}: {players[player].second}</p>
+            {#each players as player}
+                <p>{player.first}: {player.second}</p>
             {/each}
         </section>
         <footer class="card-footer bottom-0"></footer>
