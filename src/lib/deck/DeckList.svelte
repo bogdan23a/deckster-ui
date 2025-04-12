@@ -6,6 +6,7 @@
 <!-- <tr class="grid grid-cols-5 gap-1"> -->
     <select name="deckId">
         {#each decks as deck}
+            <!-- {console.log(deck.name)} -->
             <option value={deck.id}>
                 <!-- <td> -->
                 {deck.name}    

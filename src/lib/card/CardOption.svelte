@@ -3,16 +3,17 @@
         card: any;
         selected: boolean;
         onClick: any;
+        selectionIndex: number;
     }
 
-    let { card, selected, onClick }: Props = $props();
+    let { card, selected, onClick, selectionIndex }: Props = $props();
 </script>
 
 <button class="pt-6 pr-4" onclick={() => onClick(card)} type="button">
     <div class="block card card-hover {card.type.name} {selected ? 'border-4 font-bold' : 'border-2 font-normal'} hover:border-4">
         <header class="card-header"></header>
         <section class="p-4">{card.content}</section>
-        <footer class="card-footer bottom-0"></footer>
+        <footer class="card-footer bottom-0">{selectionIndex > 0 ? selectionIndex : ''}</footer>
     </div>
 </button>
 

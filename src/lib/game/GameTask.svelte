@@ -1,51 +1,58 @@
-<script>
+<script lang="ts">
 	import CardList from "$lib/card/CardList.svelte";
 	import CardPicker from "$lib/card/CardPicker.svelte";
+	import PlayersCard from "$lib/card/PlayersCard.svelte";
 	import ScoreCard from "$lib/card/ScoreCard.svelte";
 	import DeckList from "$lib/deck/DeckList.svelte";
 
     let { task } = $props();
-    let { display, events } = task;
+    let { details, events } = task;
+    let stateDetails = $state(details);
+    let prompts: number = $state(stateDetails.map((detail: any) => detail.input).filter((input: any) => input.input_type === "PROMPT").map((prompts: any) => prompts.values[0].prompts)[0]);
+    let selectedResponses = $state(events[0] === 'PICK_WINNER' ? 1 : prompts);
+
+    const messages = {
+        "DECK": "Choose Your Deck",
+        "PLAYERS": "Table",
+        "PROMPT": "Prompt",
+        "RESPONSES": "Choose your response/s",
+        "WINNER": "Choose The Winner",
+        "HOST_SETUP": "The host is setting up the game",
+        "OTHER_PLAYERS_TURN": "Waiting for other players to finish their turn",
+        "SCORE": "",
+        "SHARE_GAME": "Share this game with your friends"
+    }
 </script>
 
-<div class="m-4">
-    {#each Object.keys(display) as title}
-        <p>
-            {title}:
-            {#if display[title].input_type === "LINK"}
-                <button class="btn hover:border-t-cyan-200" onclick={() => navigator.share()}>share</button>
-            {/if}
-        </p>
-        {#if display[title].input_type === "LIST"}
-            <h1>{console.log(display[title])}</h1>
-            {#each Object.keys(display[title].values) as item}
-                <li>{display[title].values[item].email}</li>
-            {/each}
-        {/if}
-    {/each}
-</div>
 <div class="grid grid-cols-8 m-4">
-    {#each Object.keys(display) as title}
-        {#if display[title].input_type == "PROMPT"}
-            <CardList cards={display[title].values}/>
+    {#each details as detail}
+        <div class="col-span-8">
+            {messages[detail.label]}
+        </div>
+        {#if detail.input.input_type === "LINK"}
+            <button class="btn hover:border-t-cyan-200" onclick={() => navigator.share()}>share</button>
         {/if}
-    {/each}
-    {#each Object.keys(display) as title}
-        {#if display[title].input_type === "CARD_PICKER"}
-            <CardPicker cards={display[title].values} selectedCard={display[title].values[0]}/>
+        {#if detail.input.input_type === "LIST"}
+            <PlayersCard players={detail.input.values} />
         {/if}
-    {/each}
-</div>
-<div class="m-4">
-    {#each Object.keys(display) as title}
-        {#if display[title].input_type === "DECK_PICKER"}
-            <DeckList decks={display[title].values}/>
+        {#if detail.input.input_type == "PROMPT"}
+            <CardList cards={detail.input.values}/>
         {/if}
-        {#if display[title].input_type === "SCORE"}
-            <ScoreCard players={display[title].values} />
+        {#if detail.input.input_type === "CARD_PICKER"}
+            {#if detail.label === "WINNER"}
+                <CardPicker {events} cards={detail.input.values} bind:selectedResponses requiredResponses={1}/>
+            {:else}
+                <CardPicker {events} cards={detail.input.values} bind:selectedResponses requiredResponses={prompts}/>
+            {/if}
+        {/if}
+        {#if detail.input.input_type === "DECK_PICKER"}
+            <DeckList decks={detail.input.values}/>
+        {/if}
+        {#if detail.input.input_type === "SCORE"}
+            <ScoreCard players={detail.input.values} />
         {/if}
     {/each}
 </div>
 {#each events as event}
-    <button class="btn btn-primary bg-white border-black border-2 rounded-xl p-4 hover:boder-4 hover:font-bold m-4" value={event} type="submit" formaction="?/{event}">{event.replace("_", " ")}</button>
+    <button class="btn btn-primary bg-white border-black border-2 rounded-xl p-4 hover:boder-4 hover:font-bold disabled:border-2 disabled:font-normal disabled:bg-gray-200 disabled:text-gray-500 disabled:border-gray-500 m-4" disabled={selectedResponses !== prompts} value={event} type="submit" formaction="?/{event}">{event.replace("_", " ")}</button>
 {/each}
