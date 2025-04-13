@@ -3,7 +3,6 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { Client } from '@stomp/stompjs';
-	import { env } from '$env/dynamic/private';
 
     let { data } = $props();
 
