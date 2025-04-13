@@ -15,7 +15,7 @@
     };
     onMount(() => {
         const client = new Client({
-            brokerURL: `ws://${import.meta.env.VITE_DECKMASTER_URI}/websocket`,
+            brokerURL: `${import.meta.env.VITE_DECKMASTER_WEBSOCKET_PROTOCOL}://${import.meta.env.VITE_DECKMASTER_URI}/websocket`,
             debug: function (message) {
                 console.log(message);
             }
