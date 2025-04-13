@@ -1,6 +1,7 @@
-const size = 100
+const size = 100;
+let backendUri = `${import.meta.env.VITE_DECKMASTER_PROTOCOL}://${import.meta.env.VITE_DECKMASTER_URI}`
 
-export const getDecksPage = async () => fetch(import.meta.env.VITE_DECKMASTER_URI + `/deck`)
+export const getDecksPage = async () => fetch(`${backendUri}/deck`)
     .then(response => {
         if (response.ok) {
             return response.json()
@@ -9,7 +10,7 @@ export const getDecksPage = async () => fetch(import.meta.env.VITE_DECKMASTER_UR
     })
     .catch(error => console.error(error));
 
-export const getDeck = async (deckId:string) => fetch(import.meta.env.VITE_DECKMASTER_URI + `/deck/${deckId}`)
+export const getDeck = async (deckId:string) => fetch(`${backendUri}/deck/${deckId}`)
     .then(response => {
         if (response.ok) {
             return response.json()
@@ -18,7 +19,7 @@ export const getDeck = async (deckId:string) => fetch(import.meta.env.VITE_DECKM
     })
     .catch(error => console.log(error));
 
-export const getDeckNames = () => fetch(import.meta.env.VITE_DECKMASTER_URI + `/deck/names`)
+export const getDeckNames = () => fetch(`${backendUri}/deck/names`)
     .then(response => {
         if (response.ok) {
             return response.json()
@@ -26,7 +27,7 @@ export const getDeckNames = () => fetch(import.meta.env.VITE_DECKMASTER_URI + `/
         throw new Error(`Failed to request deck names. Status ${response.status}`);
     }).catch(error => console.log(error));
 
-export const saveDeck = (data:any) => fetch(import.meta.env.VITE_DECKMASTER_URI + '/deck', {
+export const saveDeck = (data:any) => fetch(`${backendUri}/deck`, {
     method: 'POST',
     body: JSON.stringify({
         name: data['name']
@@ -40,7 +41,7 @@ export const saveDeck = (data:any) => fetch(import.meta.env.VITE_DECKMASTER_URI 
         throw new Error(`Failed to save deck ${data}. Status ${response.status}`)
     }).catch((error) => console.log(error));
 
-export const saveCard = (data:any) => fetch(import.meta.env.VITE_DECKMASTER_URI + "/card", {
+export const saveCard = (data:any) => fetch(`${backendUri}/card`, {
     method: 'POST',
     body: JSON.stringify({
         content: data['content'],
@@ -57,7 +58,7 @@ export const saveCard = (data:any) => fetch(import.meta.env.VITE_DECKMASTER_URI 
         // goto("/deck/" + formData['name']);
     }).catch((error) => console.log(error));
 
-export const getCardTypes = () => fetch(import.meta.env.VITE_DECKMASTER_URI + "/type")
+export const getCardTypes = () => fetch(`${backendUri}/type`)
     .then(response => {
         if (response.ok) {
             return response.json();
@@ -65,7 +66,7 @@ export const getCardTypes = () => fetch(import.meta.env.VITE_DECKMASTER_URI + "/
         throw new Error(`Failed to find card types. Status ${response.status}`);
     }).catch((error) => console.log(error));
 
-export const createNewGame = (email: string) => fetch(import.meta.env.VITE_DECKMASTER_URI + "/game", {
+export const createNewGame = (email: string) => fetch(`${backendUri}/game`, {
     method: 'PUT',
     headers: {
         "Content-Type": "application/json",
@@ -78,7 +79,7 @@ export const createNewGame = (email: string) => fetch(import.meta.env.VITE_DECKM
         throw new Error(`Failed to create new game. Status ${response.status}`);
     }).catch((error) => console.log(error));
 
-export const getGame = (email: string, gameId: string) => fetch(import.meta.env.VITE_DECKMASTER_URI + `/game`, {
+export const getGame = (email: string, gameId: string) => fetch(`${backendUri}/game`, {
     headers: {
         "email": email,
         "game_id": gameId
@@ -90,7 +91,7 @@ export const getGame = (email: string, gameId: string) => fetch(import.meta.env.
         throw new Error(`Failed to find game ${gameId}. Status ${response.status}`);
     }).catch((error) => console.log(error));
 
-export const getTask = (gameId: string, state: string, email: string) => fetch(import.meta.env.VITE_DECKMASTER_URI + `/task/${state}`, {
+export const getTask = (gameId: string, state: string, email: string) => fetch(`${backendUri}/task/${state}`, {
     method: 'POST',
     headers: {
         "Content-Type": "application/json"
@@ -106,7 +107,7 @@ export const getTask = (gameId: string, state: string, email: string) => fetch(i
         throw new Error(`Failed to find task ${state}. Status ${response.status}`);
     }).catch((error) => console.log(error));
 
-export const sendEvent = (message: { game_id: string, email: string, deck_id: string, card_ids: string, response_group: string }, event: string) => fetch(import.meta.env.VITE_DECKMASTER_URI + `/game/${event}`, {
+export const sendEvent = (message: { game_id: string, email: string, deck_id: string, card_ids: string, response_group: string }, event: string) => fetch(`${backendUri}/game/${event}`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"

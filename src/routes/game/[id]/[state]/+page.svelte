@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { Client } from '@stomp/stompjs';
+	import { env } from '$env/dynamic/private';
 
     let { data } = $props();
 
@@ -15,7 +16,7 @@
     };
     onMount(() => {
         const client = new Client({
-            brokerURL: 'ws://localhost:9090/websocket',
+            brokerURL: `ws://${import.meta.env.VITE_DECKMASTER_URI}/websocket`,
             debug: function (message) {
                 console.log(message);
             }

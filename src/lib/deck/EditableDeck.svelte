@@ -6,6 +6,7 @@
     let card_types = new Map([
         ["black", 1],
         ["white", 1]]);
+    let backendUri = `${import.meta.env.VITE_DECKMASTER_PROTOCOL}://${import.meta.env.VITE_DECKMASTER_URI}`
     interface Props {
         deck: any;
     }
@@ -13,7 +14,7 @@
     let { deck }: Props = $props();
     const deleteDeck = (e: PointerEvent) => {
         console.log(e.target['id']);
-        fetch(import.meta.env.VITE_DECKMASTER_URI + "/deck/" + e.target['id'], {
+        fetch(`${backendUri}/deck/${e.target['id']}`, {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json"
