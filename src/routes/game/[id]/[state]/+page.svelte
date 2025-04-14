@@ -16,13 +16,9 @@
     onMount(() => {
         const client = new Client({
             brokerURL: `${import.meta.env.VITE_DECKMASTER_WEBSOCKET_PROTOCOL}://${import.meta.env.VITE_DECKMASTER_URI}/websocket`,
-            debug: function (message) {
-                console.log(message);
-            }
         });
 
         client.onConnect = (frame) => {
-            console.log("Connected", frame);
             client.subscribe('/public', refresh)
         }
 
