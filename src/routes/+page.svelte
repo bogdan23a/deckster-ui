@@ -9,7 +9,7 @@
 <div class="container mt-12 mx-auto">
 	<div class="grid grid-cols-1 place-content-stretch mx-96">
 		{#await data}
-			loading...
+			loading....
 		{:then data}
 			<h1 class="m-4 p-4 text-3xl flex justify-center">Main Menu</h1>
 			{#if data.session}
