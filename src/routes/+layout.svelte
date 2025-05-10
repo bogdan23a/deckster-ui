@@ -8,7 +8,9 @@
 
 	type Props = {
 		children: Snippet,
-		data: PageProps
+		data: {
+			session: any
+		}
 	}
 	let { data, children }: Props = $props();
 	const env = import.meta.env.VITE_DECKMASTER_ENVIRONMENT;
