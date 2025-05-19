@@ -12,6 +12,7 @@
 			loading....
 		{:then data}
 			<h1 class="m-4 p-4 text-3xl flex justify-center">Main Menu</h1>
+			{process.env["AUTH_GITHUB_SECRET"]}
 			{#if data.session}
 				<button class="btn btn-primary bg-white border-black border-2 rounded-xl p-4 hover:boder-4 active:font-bold m-4" onclick={() => goto(newGameUrl)}>New Game</button>
 				<button class="btn btn-primary bg-white border-black border-2 rounded-xl p-4 hover:boder-4 active:font-bold m-4" onclick={() => signOut()}>Log Out</button>

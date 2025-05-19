@@ -8,6 +8,6 @@ export const { handle, signIn, signOut } = SvelteKitAuth(async () => {
     providers: [
       GitHub,
       Auth0
-    ],
+    ]
   }
 })

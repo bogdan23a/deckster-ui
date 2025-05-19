@@ -1,5 +1,5 @@
 const size = 100;
-let backendUri = `${import.meta.env.VITE_DECKMASTER_PROTOCOL}://${import.meta.env.VITE_DECKMASTER_URI}`
+let backendUri = `${process.env["VITE_DECKMASTER_PROTOCOL"]}://${process.env["VITE_DECKMASTER_URI"]}`
 
 export const getDecksPage = async () => fetch(`${backendUri}/deck`)
     .then(response => {

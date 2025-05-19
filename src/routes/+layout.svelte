@@ -13,7 +13,7 @@
 		}
 	}
 	let { data, children }: Props = $props();
-	const env = import.meta.env.VITE_DECKMASTER_ENVIRONMENT;
+	const env = process.env["VITE_DECKMASTER_ENVIRONMENT"];
 </script>
 
 <svelte:head>
