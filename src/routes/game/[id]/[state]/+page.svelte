@@ -16,7 +16,7 @@
 
     onMount(() => {
         const client = new Client({
-            brokerURL: "ws://0.0.0.0:9090",
+            brokerURL: data.websocketUri,
         });
 
         client.onConnect = (frame) => {
