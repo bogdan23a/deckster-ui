@@ -17,10 +17,14 @@
     onMount(() => {
         const client = new Client({
             brokerURL: data.websocketUri,
+            debug: function (message) {
+                console.log(message);
+            }
         });
 
         client.onConnect = (frame) => {
-            client.subscribe('/public', refresh)
+            console.log("Connected to ws")
+            client.subscribe('/public', refresh);
         }
 
         client.onStompError = (frame) => {
