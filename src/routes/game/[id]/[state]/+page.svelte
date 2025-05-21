@@ -23,7 +23,7 @@
         });
 
         client.onConnect = (frame) => {
-            console.log("Connected to ws")
+            console.log("Connected to ws", frame)
             client.subscribe('/public', refresh);
         }
 
