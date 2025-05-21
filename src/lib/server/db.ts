@@ -4,7 +4,7 @@ const host = process.env["VITE_DECKMASTER_URI"];
 
 let backendUri = `${httpProtocol}://${host}`
 
-export const websocketUri = `${wsProtocol}://${host}`;
+export const websocketUri = `${wsProtocol}://${host}/websocket`;
 
 export const getDecksPage = async () => fetch(`${backendUri}/deck`)
     .then(response => {
