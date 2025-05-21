@@ -19,18 +19,6 @@
 {/each}
 
 <style lang="postcss">
-    .card {
-        display: flex;
-		flex-direction: column;
-		flex-wrap: wrap;
-        width: 200px;
-        height: 280px;
-        border-style: solid;
-        border-radius: 13px;
-        font-family:  Neue LT,-apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,sans-serif;
-        font-size: 20px;
-        line-height: 26px;
-    }
 	.Prompt {
         border-color: rgb(255, 255, 255);
         background-color: rgb(0, 0, 0) !important;

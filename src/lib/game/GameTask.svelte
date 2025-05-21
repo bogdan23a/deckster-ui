@@ -56,5 +56,5 @@
     {/each}
 </div>
 {#each events as event}
-    <button class="btn btn-primary bg-white border-black border-2 rounded-xl p-4 hover:boder-4 hover:font-bold disabled:border-2 disabled:font-normal disabled:bg-gray-200 disabled:text-gray-500 disabled:border-gray-500 m-4" disabled={event === "PICK_WINNER" ? selectedResponses !== 1 : selectedResponses !== prompts} value={event} type="submit" formaction="?/{event}">{event.replace("_", " ")}</button>
+    <button class="btn btn-primary bg-black text-white hover:bg-neutral-800 active:bg-neutral-900" disabled={event === "PICK_WINNER" ? selectedResponses !== 1 : selectedResponses !== prompts} value={event} type="submit" formaction="?/{event}">{event.replace("_", " ")}</button>
 {/each}

@@ -1,5 +1,5 @@
 import type { PageServerLoad } from "./$types";
-import { getGame, getTask, sendEvent } from "$lib/server/db";
+import { getGame, getTask, sendEvent, websocketUri } from "$lib/server/db";
 import { redirect, type Actions } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async (event) => {
@@ -17,7 +17,8 @@ export const load: PageServerLoad = async (event) => {
   return {
     session,
     game,
-    task, 
+    task,
+    websocketUri,
   };
 }
 

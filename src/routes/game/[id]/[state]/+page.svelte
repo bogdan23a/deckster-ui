@@ -13,9 +13,10 @@
             goto(`/refresh/${data.game.id}/${data.game.state}`);
         });
     };
+
     onMount(() => {
         const client = new Client({
-            brokerURL: `${process.env["VITE_DECKMASTER_WEBSOCKET_PROTOCOL"]}://${process.env["VITE_DECKMASTER_URI"]}/websocket`,
+            brokerURL: "ws://0.0.0.0:9090",
         });
 
         client.onConnect = (frame) => {

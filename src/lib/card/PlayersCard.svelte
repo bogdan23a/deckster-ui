@@ -19,21 +19,6 @@
 </div>
 
 <style lang="postcss">
-    .card {
-        display: flex;
-		flex-direction: column;
-		flex-wrap: wrap;
-        width: 200px;
-        height: 280px;
-        border-style: solid;
-        border-width: 2px;
-        border-radius: 13px;
-        font-family:  Neue LT,-apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,sans-serif;
-        font-weight: 400;
-        font-size: 20px;
-        line-height: 26px;
-    }
-
     .card-header {
         font-size: 20px;
     }

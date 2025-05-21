@@ -1,5 +1,10 @@
-const size = 100;
-let backendUri = `${process.env["VITE_DECKMASTER_PROTOCOL"]}://${process.env["VITE_DECKMASTER_URI"]}`
+const httpProtocol = process.env["VITE_DECKMASTER_PROTOCOL"];
+const wsProtocol = process.env["VITE_DECKMASTER_WEBSOCKET_PROTOCOL"];
+const host = process.env["VITE_DECKMASTER_URI"];
+
+let backendUri = `${httpProtocol}://${host}`
+
+export const websocketUri = `${wsProtocol}://${host}`;
 
 export const getDecksPage = async () => fetch(`${backendUri}/deck`)
     .then(response => {
