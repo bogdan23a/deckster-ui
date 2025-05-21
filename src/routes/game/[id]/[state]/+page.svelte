@@ -1,38 +1,10 @@
 <script lang='ts'>
 	import GameTask from '$lib/game/GameTask.svelte';
 	import { onMount } from 'svelte';
-	import { goto } from '$app/navigation';
-	import { Client } from '@stomp/stompjs';
 
     let { data } = $props();
 
-    const sleep = (time: number) => new Promise(resolve => setTimeout(resolve, time));
-
-    const refresh = async () => {
-        await sleep(100).then(() => {
-            goto(`/refresh/${data.game.id}/${data.game.state}`);
-        });
-    };
-
-    onMount(() => {
-        const client = new Client({
-            brokerURL: data.websocketUri,
-            debug: function (message) {
-                console.log(message);
-            }
-        });
-
-        client.onConnect = (frame) => {
-            console.log("Connected to ws", frame)
-            client.subscribe('/public', refresh);
-        }
-
-        client.onStompError = (frame) => {
-            console.log("error", frame)
-        }
-
-        client.activate();
-    });
+    onMount(() => data.connectToWS());
 </script>
 
 <form method="POST" action="/game">

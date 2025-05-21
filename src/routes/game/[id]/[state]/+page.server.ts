@@ -1,6 +1,8 @@
 import type { PageServerLoad } from "./$types";
 import { getGame, getTask, sendEvent, websocketUri } from "$lib/server/db";
 import { redirect, type Actions } from "@sveltejs/kit";
+import { Client } from "@stomp/stompjs";
+import { goto } from "$app/navigation";
 
 export const load: PageServerLoad = async (event) => {
   let { params } = event;
@@ -12,13 +14,39 @@ export const load: PageServerLoad = async (event) => {
   if (!game.players.map((player: { email: any; }) => player.email).includes(session?.user?.email)) {
     let message = { game_id: params.id || '', email: session?.user?.email || '', deck_id: '', card_ids: '', response_group: '' };
     await sendEvent(message, "JOIN");
-  }
+  };
+
+  const sleep = (time: number) => new Promise(resolve => setTimeout(resolve, time));
+
+  const refresh = async () => {
+    await sleep(100).then(() => {
+        goto(`/refresh/${game.id}/${game.state}`);
+    });
+  };
+
+  const connectToWs = () => {
+    const client = new Client({
+      brokerURL: websocketUri,
+      debug: function (message) {
+          console.log(message);
+      }
+    });
+    client.onConnect = (frame) => {
+        console.log("Connected to ws", frame)
+        client.subscribe('/public', refresh);
+    }
+    client.onStompError = (frame) => {
+        console.log("error", frame)
+    }
+    client.activate();
+  };
+
   const task = await getTask(params.id, params.state, session?.user?.email || '');
   return {
     session,
     game,
     task,
-    websocketUri,
+    connectToWs
   };
 }
 
