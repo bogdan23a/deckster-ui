@@ -2,7 +2,6 @@ import type { PageServerLoad } from "./$types";
 import { getGame, getTask, sendEvent, websocketUri } from "$lib/server/db";
 import { redirect, type Actions } from "@sveltejs/kit";
 import { Client } from "@stomp/stompjs";
-import { goto } from "$app/navigation";
 
 export const load: PageServerLoad = async (event) => {
   let { params } = event;
@@ -20,7 +19,7 @@ export const load: PageServerLoad = async (event) => {
 
   const refresh = async () => {
     await sleep(100).then(() => {
-        goto(`/refresh/${game.id}/${game.state}`);
+        return { status: 302, redirect: `/refresh/${game.id}/${game.state}` };
     });
   };
 
