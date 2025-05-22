@@ -1,7 +1,6 @@
 import type { PageServerLoad } from "./$types";
 import { getGame, getTask, sendEvent, websocketUri } from "$lib/server/db";
 import { redirect, type Actions } from "@sveltejs/kit";
-import { Client } from "@stomp/stompjs";
 
 export const load: PageServerLoad = async (event) => {
   let { params } = event;
@@ -15,34 +14,12 @@ export const load: PageServerLoad = async (event) => {
     await sendEvent(message, "JOIN");
   };
 
-  const sleep = (time: number) => new Promise(resolve => setTimeout(resolve, time));
-
-  const refresh = async () => {
-    await sleep(100).then(() => {
-        return { status: 302, redirect: `/refresh/${game.id}/${game.state}` };
-    });
-  };
-
-  const client = new Client({
-    brokerURL: websocketUri,
-    debug: function (message) {
-        console.log(message);
-    }
-  });
-  client.onConnect = (frame) => {
-      console.log("Connected to ws", frame)
-      client.subscribe('/public', refresh);
-  }
-  client.onStompError = (frame) => {
-      console.log("error", frame)
-  }
-  client.activate();
-
   const task = await getTask(params.id, params.state, session?.user?.email || '');
   return {
     session,
     game,
-    task
+    task,
+    websocketUri
   };
 }
 
