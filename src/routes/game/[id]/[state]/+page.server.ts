@@ -24,7 +24,6 @@ export const load: PageServerLoad = async (event) => {
     });
   };
 
-  // const connectToWs = () => {
   const client = new Client({
     brokerURL: websocketUri,
     debug: function (message) {
@@ -39,7 +38,6 @@ export const load: PageServerLoad = async (event) => {
       console.log("error", frame)
   }
   client.activate();
-  // };
 
   const task = await getTask(params.id, params.state, session?.user?.email || '');
   return {
