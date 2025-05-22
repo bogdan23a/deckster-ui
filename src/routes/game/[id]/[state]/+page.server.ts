@@ -24,29 +24,28 @@ export const load: PageServerLoad = async (event) => {
     });
   };
 
-  const connectToWs = () => {
-    const client = new Client({
-      brokerURL: websocketUri,
-      debug: function (message) {
-          console.log(message);
-      }
-    });
-    client.onConnect = (frame) => {
-        console.log("Connected to ws", frame)
-        client.subscribe('/public', refresh);
+  // const connectToWs = () => {
+  const client = new Client({
+    brokerURL: websocketUri,
+    debug: function (message) {
+        console.log(message);
     }
-    client.onStompError = (frame) => {
-        console.log("error", frame)
-    }
-    client.activate();
-  };
+  });
+  client.onConnect = (frame) => {
+      console.log("Connected to ws", frame)
+      client.subscribe('/public', refresh);
+  }
+  client.onStompError = (frame) => {
+      console.log("error", frame)
+  }
+  client.activate();
+  // };
 
   const task = await getTask(params.id, params.state, session?.user?.email || '');
   return {
     session,
     game,
-    task,
-    connectToWs
+    task
   };
 }
 
