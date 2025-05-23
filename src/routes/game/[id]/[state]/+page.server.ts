@@ -15,7 +15,6 @@ export const load: PageServerLoad = async (event) => {
   };
 
   const task = await getTask(params.id, params.state, session?.user?.email || '');
-  console.log(task);
   return {
     session,
     game,
