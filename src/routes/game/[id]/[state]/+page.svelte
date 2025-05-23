@@ -9,7 +9,6 @@
     const sleep = (time: number) => new Promise(resolve => setTimeout(resolve, time));
 
     const refreshPage = async () => {
-        console.log("refresh", data.game.id, data.game.state);
         await sleep(100).then(() => {
             goto(`/refresh/${data.game.id}/${data.game.state}`);
         });

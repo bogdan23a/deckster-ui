@@ -25,9 +25,9 @@
     }
 </script>
 
-<div class="grid grid-cols-8 m-4">
+<div class="grid grid-cols-7 m-4">
     {#each details as detail}
-        <div class="col-span-8">
+        <div class="col-span-7 mt-4">
             {messages[detail.label]}
         </div>
         {#if detail.input.input_type === "LINK"}

@@ -15,6 +15,7 @@ export const load: PageServerLoad = async (event) => {
   };
 
   const task = await getTask(params.id, params.state, session?.user?.email || '');
+  console.log(task);
   return {
     session,
     game,
@@ -52,7 +53,6 @@ export const actions = {
     let { params, request } = event;
     let formData = await request.formData()
     let responseGroup = formData.get("responseGroup");
-    console.log("Response", responseGroup);
     let session = await event.locals.auth();
     let message = { game_id: params.id || '', email: session?.user?.email || '', deck_id: '', card_ids: '', response_group: responseGroup?.toString() || '' };
     let newState = await sendEvent(message, "PICK_WINNER");

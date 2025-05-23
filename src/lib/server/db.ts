@@ -1,9 +1,11 @@
-const httpProtocol = process.env["VITE_DECKMASTER_PROTOCOL"];
-const wsProtocol = process.env["VITE_DECKMASTER_WEBSOCKET_PROTOCOL"];
-const host = process.env["VITE_DECKMASTER_URI"];
-const wsHost = process.env["DECKMASTER_WEBSOCKET_URI"];
+import { VITE_DECKSTER_PROTOCOL, VITE_DECKSTER_WEBSOCKET_PROTOCOL, VITE_DECKSTER_URI, DECKSTER_WEBSOCKET_URI } from "$env/static/private";
 
-let backendUri = `${httpProtocol}://${host}`
+const httpProtocol = VITE_DECKSTER_PROTOCOL;
+const wsProtocol = VITE_DECKSTER_WEBSOCKET_PROTOCOL;
+const host = VITE_DECKSTER_URI;
+const wsHost = DECKSTER_WEBSOCKET_URI;
+
+let backendUri = `${httpProtocol}://${host}`;
 
 export const websocketUri = `${wsProtocol}://${wsHost}/websocket`;
 

@@ -9,8 +9,8 @@
     let { card, selected, onClick, selectionIndex }: Props = $props();
 </script>
 
-<button class="pt-6 pr-4" onclick={() => onClick(card)} type="button">
-    <div class="block card card-hover {card.type.name} {selected ? 'border-4 font-bold' : 'border-2 font-normal'} hover:border-4">
+<button class="pt-6 pr-4 col-span-4 sm:col-span-2 xl:col-span-1" onclick={() => onClick(card)} type="button">
+    <div class="card card-hover {card.type.name} {selected ? 'border-4 font-bold' : 'border-2 font-normal'} hover:border-4 z-10 hover:z-20">
         <header class="card-header"></header>
         <section class="p-4">{card.content}</section>
         <footer class="card-footer bottom-0">{selectionIndex > 0 ? selectionIndex : ''}</footer>

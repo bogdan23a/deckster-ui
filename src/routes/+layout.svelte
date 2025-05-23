@@ -12,11 +12,10 @@
 		}
 	}
 	let { data, children }: Props = $props();
-	const env = process.env["VITE_DECKMASTER_ENVIRONMENT"];
 </script>
 
 <svelte:head>
-	<title>Deckster {env}</title>
+	<title>Deckster {data.env}</title>
 </svelte:head>
 
 <AppBar background="bg-gray-950 dark:bg-black">
@@ -28,7 +27,7 @@
 			<a 
 				href="/"
 			>
-				Deckster {env}
+				Deckster {data.env}
 			</a>
 		</strong>
 	{/snippet}

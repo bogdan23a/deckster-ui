@@ -7,7 +7,7 @@
 </script>
 
 <div class="pt-6">
-    <div class="block card card-hover Response">
+    <div class="card card-hover Response">
         <header class="card-header p-2">Score</header>
         <section class="p-4">
             {#each players as player}
@@ -27,6 +27,5 @@
         border-color: rgb(0, 0, 0);
         background-color: rgb(255, 255, 255) !important;
         color: rgb(0, 0, 0);
-        font-size: 10px;
     }
 </style>

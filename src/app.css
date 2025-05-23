@@ -33,7 +33,6 @@ html, body {
 }
 
 .card {
-    display: flex;
     align-items: flex-end;
     justify-content: flex-start;
     text-align: left;
@@ -44,4 +43,14 @@ html, body {
     font-weight: bold;
     font-size: 1rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    position: relative;
+    z-index: 10;
+}
+
+.card:hover {
+    z-index: 50;
+}
+
+.card-footer {
+    text-align: center;
 }

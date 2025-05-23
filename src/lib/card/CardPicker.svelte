@@ -40,8 +40,10 @@
 </script>
 
 {#if cards}
-    <input type="hidden" hidden bind:value={selectedIds} name="cardIds[]">
+    <input type="hidden" hidden bind:value={selectedIds} name="cardIds[]"/>
+    <!-- <div class="grid 2xl:grid-cols-12 xl:grid-cols-12 lg:grid-cols-10 md:grid-cols-6 sm:grid-cols-6 w-full"> -->
     {#each stateCards as card}
         <CardOption {card} selected={selectedCards.includes(card)} {onClick} selectionIndex={getSelectionIndex(card)}/>
     {/each}
+    <!-- </div> -->
 {/if}
