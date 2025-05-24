@@ -1,4 +1,5 @@
 <script lang='ts'>
+	import { goto } from '$app/navigation';
 	import GameTask from '$lib/game/GameTask.svelte';
 	import { Client } from '@stomp/stompjs';
 	import { onMount } from 'svelte';
@@ -9,7 +10,7 @@
 
     const refreshPage = async () => {
         await sleep(100).then(() => {
-            invalidateAll(`/game/${data.game.id}/${data.game.state}`);
+            goto(`/refresh/${data.game.id}/${data.game.state}`);
         });
     };
 
@@ -30,11 +31,6 @@
         client.activate();
     });
 
-
-
-	function invalidateAll(arg0: string) {
-		throw new Error('Function not implemented.');
-	}
 </script>
 
 <form method="POST" action="/game">

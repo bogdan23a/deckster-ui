@@ -41,9 +41,9 @@
 			<span class="signedInText">
 				<strong class="text-gray-100 dark:text-white">{data.session?.user?.name ?? "User"}</strong>
 			</span>
-			<button onclick={() => signOut()} class="btn-sm variant-ghost-surface text-gray-100 dark:text-white">Sign out</button>
+			<!-- <button onclick={() => signOut()} class="btn-sm variant-ghost-surface text-gray-100 dark:text-white">Sign out</button> -->
 		{:else}
-			<button class="btn-sm variant-ghost-surface text-gray-100 dark:text-white" onclick={() => goto("/")}>Sign In</button>
+			<!-- <button class="btn-sm variant-ghost-surface text-gray-100 dark:text-white" onclick={() => goto("/")}>Sign In</button> -->
 		{/if}
 
 	{/snippet}
