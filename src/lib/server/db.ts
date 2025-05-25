@@ -1,9 +1,9 @@
-import { VITE_DECKSTER_PROTOCOL, VITE_DECKSTER_WEBSOCKET_PROTOCOL, VITE_DECKSTER_URI, DECKSTER_WEBSOCKET_URI } from "$env/static/private";
+import { env } from "$env/dynamic/private";
 
-const httpProtocol = VITE_DECKSTER_PROTOCOL;
-const wsProtocol = VITE_DECKSTER_WEBSOCKET_PROTOCOL;
-const host = VITE_DECKSTER_URI;
-const wsHost = DECKSTER_WEBSOCKET_URI;
+const httpProtocol = env.HTTP_PROTOCOL;
+const wsProtocol = env.WEBSOCKET_PROTOCOL;
+const host = env.BACKEND_URI;
+const wsHost = env.WEBSOCKET_URI;
 
 let backendUri = `${httpProtocol}://${host}`;
 
